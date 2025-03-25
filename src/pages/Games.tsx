@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
-import { Gamepad2, Controller } from "lucide-react";
+import { Gamepad2, Joystick } from "lucide-react";
 import AnimatedCard from "../components/shared/AnimatedCard";
 
 const Games = () => {
@@ -26,7 +26,7 @@ const Games = () => {
         
         {/* Console animation */}
         <div className="absolute bottom-1/4 right-20 opacity-5 animate-float" style={{ animationDuration: "18s", animationDelay: "2s" }}>
-          <Controller size={100} />
+          <Joystick size={100} />
         </div>
         
         {/* Gaming pattern */}
