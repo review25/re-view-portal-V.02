@@ -20,11 +20,11 @@ const Logo = ({ size = "md", withText = true, className = "" }: LogoProps) => {
       className={`flex items-center gap-2 group ${className}`}
       aria-label="Re-View Home"
     >
-      <div className={`relative ${sizeClasses[size]}`}>
+      <div className={`relative ${sizeClasses[size]} rounded-full overflow-hidden`}>
         <img
           src="/lovable-uploads/e469f6d3-da2d-43a5-ab25-f72c91ca5fe3.png"
           alt="Re-View Logo"
-          className={`${sizeClasses[size]} object-contain neon-glow transition-all duration-500 group-hover:animate-pulse-glow`}
+          className={`${sizeClasses[size]} object-contain rounded-full neon-glow transition-all duration-500 group-hover:animate-pulse-glow`}
         />
       </div>
       

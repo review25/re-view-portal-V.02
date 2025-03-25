@@ -20,13 +20,13 @@ const Hero = () => {
       <div className="absolute inset-0 tech-background opacity-20"></div>
       <div className="absolute inset-0 bg-gradient-radial from-transparent to-review-black/95"></div>
       
-      {/* Large Eye Graphic */}
+      {/* Large Eye Graphic - this stays as the revolving logo background */}
       <div className="absolute right-[-15%] top-[15%] md:right-[-5%] opacity-30 pointer-events-none">
         <div className="relative w-[500px] h-[500px] md:w-[800px] md:h-[800px]">
           <img 
             src="/lovable-uploads/e469f6d3-da2d-43a5-ab25-f72c91ca5fe3.png" 
             alt="Re-View Eye" 
-            className="w-full h-full object-contain animate-rotate-slow opacity-30"
+            className="w-full h-full object-contain animate-rotate-slow opacity-30 rounded-full"
           />
         </div>
       </div>
@@ -41,15 +41,15 @@ const Hero = () => {
               className={`transition-all duration-700 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
             >
               <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wide text-review-cyan bg-review-cyan/10 rounded-full mb-4">
-                Innovative Software Solutions
+                AI, ML & Cybersecurity Solutions
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="text-gradient">Re-View</span>{" "}
                 <span className="text-white">Your Digital Experience</span>
               </h1>
               <p className="mt-6 text-lg text-white/80 max-w-lg">
-                Games that captivate, applications that innovate, and educational technology 
-                that inspires. Experience the future with Re-View.
+                Games that captivate, applications that innovate, and cutting-edge AI 
+                solutions that transform how we interact with technology.
               </p>
             </div>
             
@@ -69,38 +69,28 @@ const Hero = () => {
               className={`flex items-center gap-6 transition-all duration-700 delay-300 ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
             >
               <div className="flex -space-x-3">
-                <div className="w-10 h-10 rounded-full bg-review-gray border-2 border-review-cyan flex items-center justify-center text-xs font-bold text-review-cyan">AR</div>
-                <div className="w-10 h-10 rounded-full bg-review-gray border-2 border-review-cyan flex items-center justify-center text-xs font-bold text-review-cyan">VR</div>
-                <div className="w-10 h-10 rounded-full bg-review-gray border-2 border-review-cyan flex items-center justify-center text-xs font-bold text-review-cyan">3D</div>
+                <div className="w-10 h-10 rounded-full bg-review-gray border-2 border-review-cyan flex items-center justify-center text-xs font-bold text-review-cyan">AI</div>
+                <div className="w-10 h-10 rounded-full bg-review-gray border-2 border-review-cyan flex items-center justify-center text-xs font-bold text-review-cyan">ML</div>
+                <div className="w-10 h-10 rounded-full bg-review-gray border-2 border-review-cyan flex items-center justify-center text-xs font-bold text-review-cyan">CS</div>
               </div>
               <p className="text-sm text-white/70">
-                Cutting-edge technologies<br />for immersive experiences
+                Advancing technology through<br />Artificial Intelligence & Cybersecurity
               </p>
             </div>
           </div>
           
-          <div className="hidden lg:block relative">
-            <div 
-              className={`glass-card rounded-2xl overflow-hidden aspect-square max-w-md mx-auto transition-all duration-1000 ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
-            >
-              <img 
-                src="/lovable-uploads/e469f6d3-da2d-43a5-ab25-f72c91ca5fe3.png" 
-                alt="Re-View Technology" 
-                className="w-full h-full object-cover filter brightness-110 contrast-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-review-black via-transparent to-transparent"></div>
-              
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-bold text-white">Visionary Technology</h3>
-                <p className="text-white/70 text-sm mt-2">
-                  Redefining how we interact with digital content
-                </p>
-              </div>
-            </div>
+          <div className="hidden lg:flex justify-center items-center relative h-full">
+            {/* Instead of the image, we'll just have decorative elements */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border-2 border-review-cyan/30 rounded-full animate-pulse-glow"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-review-cyan/40 rounded-full"></div>
             
-            {/* Decorative Elements */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 border border-review-cyan/20 rounded-full"></div>
-            <div className="absolute -bottom-5 -left-5 w-24 h-24 border border-review-cyan/30 rounded-full"></div>
+            {/* Binary code floating effect */}
+            <div className="absolute inset-0 overflow-hidden opacity-20">
+              <div className="absolute top-0 left-1/4 text-review-cyan animate-float" style={{ animationDelay: '0.5s' }}>01001</div>
+              <div className="absolute top-1/4 right-1/4 text-review-cyan animate-float" style={{ animationDelay: '1.2s' }}>10110</div>
+              <div className="absolute bottom-1/4 left-1/3 text-review-cyan animate-float" style={{ animationDelay: '0.8s' }}>01101</div>
+              <div className="absolute bottom-1/3 right-1/3 text-review-cyan animate-float" style={{ animationDelay: '1.5s' }}>10010</div>
+            </div>
           </div>
         </div>
       </div>
