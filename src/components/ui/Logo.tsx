@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 
 interface LogoProps {
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
   withText?: boolean;
   className?: string;
 }
@@ -12,6 +12,7 @@ const Logo = ({ size = "md", withText = true, className = "" }: LogoProps) => {
     sm: "h-8 w-8",
     md: "h-10 w-10",
     lg: "h-16 w-16",
+    xl: "h-24 w-24",
   };
 
   return (
