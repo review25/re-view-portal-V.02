@@ -51,7 +51,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`nav-link text-base ${isActive(link.path) ? "nav-link-active" : ""}`}
+                className={`nav-link text-review-cyan text-base font-medium ${isActive(link.path) ? "nav-link-active" : ""}`}
               >
                 {link.name}
               </Link>
@@ -71,7 +71,7 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button
-            className="text-white hover:text-review-cyan transition-colors"
+            className="text-review-cyan hover:brightness-125 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
           >
@@ -95,7 +95,7 @@ const Navbar = () => {
                 className={`text-lg font-medium py-2 px-4 rounded-md transition-colors ${
                   isActive(link.path)
                     ? "text-review-cyan bg-review-cyan/10"
-                    : "text-white hover:text-review-cyan hover:bg-review-cyan/5"
+                    : "text-review-cyan hover:text-review-cyan hover:bg-review-cyan/5"
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >

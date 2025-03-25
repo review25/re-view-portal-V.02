@@ -45,7 +45,7 @@ const Hero = () => {
                 AI, ML & Cybersecurity Solutions
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                <span className="text-gradient">Re-View</span>{" "}
+                <span className="text-review-cyan neon-text">Re-View</span>{" "}
                 <span className="text-white">Your Digital Experience</span>
               </h1>
               <p className="mt-6 text-lg text-white/80 max-w-lg">
@@ -82,18 +82,24 @@ const Hero = () => {
           
           <div className="hidden lg:flex justify-center items-center relative h-full">
             {/* Display the round logo with glow effect */}
-            <div className="relative w-72 h-72">
+            <div className="relative w-80 h-80">
               <div className="absolute inset-0 bg-review-cyan/20 rounded-full animate-pulse-glow"></div>
-              <Logo size="xl" withText={false} className="w-full h-full object-contain" />
-              <div className="absolute inset-0 bg-review-cyan/5 rounded-full shadow-[0_0_30px_rgba(10,255,255,0.5)] animate-pulse-glow"></div>
+              <div className="w-full h-full p-4">
+                <img
+                  src="/lovable-uploads/e469f6d3-da2d-43a5-ab25-f72c91ca5fe3.png"
+                  alt="Re-View Logo"
+                  className="w-full h-full object-contain rounded-full neon-glow"
+                />
+              </div>
+              <div className="absolute inset-0 bg-transparent rounded-full shadow-neon-strong animate-pulse-glow"></div>
             </div>
             
             {/* Decorative elements */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border-2 border-review-cyan/30 rounded-full animate-pulse-glow"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-88 h-88 border border-review-cyan/20 rounded-full"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-88 h-88 border-2 border-review-cyan/40 rounded-full animate-pulse-glow"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-review-cyan/30 rounded-full"></div>
             
             {/* Binary code floating effect */}
-            <div className="absolute inset-0 overflow-hidden opacity-40">
+            <div className="absolute inset-0 overflow-hidden opacity-60">
               <div className="absolute top-0 left-1/4 text-review-cyan animate-float" style={{ animationDelay: '0.5s' }}>01001</div>
               <div className="absolute top-1/4 right-1/4 text-review-cyan animate-float" style={{ animationDelay: '1.2s' }}>10110</div>
               <div className="absolute bottom-1/4 left-1/3 text-review-cyan animate-float" style={{ animationDelay: '0.8s' }}>01101</div>
