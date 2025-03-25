@@ -26,7 +26,7 @@ const Hero = () => {
           <img 
             src="/lovable-uploads/e469f6d3-da2d-43a5-ab25-f72c91ca5fe3.png" 
             alt="Re-View Eye" 
-            className="w-full h-full object-contain animate-rotate-slow opacity-30 rounded-full"
+            className="w-full h-full object-contain animate-rotate-slow opacity-30 rounded-full neon-glow"
           />
         </div>
       </div>
@@ -80,9 +80,19 @@ const Hero = () => {
           </div>
           
           <div className="hidden lg:flex justify-center items-center relative h-full">
-            {/* Instead of the image, we'll just have decorative elements */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border-2 border-review-cyan/30 rounded-full animate-pulse-glow"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-48 h-48 border border-review-cyan/40 rounded-full"></div>
+            {/* Display the round logo with glow effect */}
+            <div className="relative w-64 h-64">
+              <div className="absolute inset-0 bg-review-cyan/10 rounded-full animate-pulse-glow"></div>
+              <img 
+                src="/lovable-uploads/e469f6d3-da2d-43a5-ab25-f72c91ca5fe3.png" 
+                alt="Re-View Logo" 
+                className="w-full h-full object-contain rounded-full neon-glow"
+              />
+            </div>
+            
+            {/* Decorative elements */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 border-2 border-review-cyan/30 rounded-full animate-pulse-glow"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border border-review-cyan/20 rounded-full"></div>
             
             {/* Binary code floating effect */}
             <div className="absolute inset-0 overflow-hidden opacity-20">

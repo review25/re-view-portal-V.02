@@ -21,6 +21,7 @@ const Logo = ({ size = "md", withText = true, className = "" }: LogoProps) => {
       aria-label="Re-View Home"
     >
       <div className={`relative ${sizeClasses[size]} rounded-full overflow-hidden`}>
+        <div className="absolute inset-0 bg-review-cyan/20 rounded-full animate-pulse-glow"></div>
         <img
           src="/lovable-uploads/e469f6d3-da2d-43a5-ab25-f72c91ca5fe3.png"
           alt="Re-View Logo"

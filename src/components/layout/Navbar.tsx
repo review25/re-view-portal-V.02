@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Logo from "../ui/Logo";
-import ThemeToggle from "../ui/ThemeToggle";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -59,8 +58,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          <div className="flex items-center space-x-4">
-            <ThemeToggle />
+          <div className="flex items-center">
             <Link
               to="/login"
               className="btn-primary"
@@ -70,9 +68,8 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu Button and Theme Toggle */}
-        <div className="md:hidden flex items-center space-x-4">
-          <ThemeToggle />
+        {/* Mobile Menu Button */}
+        <div className="md:hidden flex items-center">
           <button
             className="text-white hover:text-review-cyan transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
