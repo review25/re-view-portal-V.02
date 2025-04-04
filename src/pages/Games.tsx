@@ -3,7 +3,10 @@ import { useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
-import { Gamepad2, Joystick } from "lucide-react";
+import { Gamepad2, Joystick, Timer } from "lucide-react";
+import { toast } from "sonner";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 const Games = () => {
   useEffect(() => {
@@ -14,22 +17,44 @@ const Games = () => {
     document.title = "Re-Games | Mobile & Web Gaming Experiences";
   }, []);
 
+  const handlePlayNow = (gameName: string) => {
+    toast.success(`Loading ${gameName}... Get ready to play!`);
+  };
+
+  const handleSubscribe = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const emailInput = form.elements.namedItem('email') as HTMLInputElement;
+    
+    if (emailInput && emailInput.value) {
+      toast.success(`Thanks for subscribing! We'll notify you about our upcoming games.`);
+      emailInput.value = '';
+    } else {
+      toast.error("Please enter a valid email address");
+    }
+  };
+
   return (
-    <div className="min-h-screen flex flex-col bg-review-black">
+    <div className="min-h-screen flex flex-col bg-white">
       {/* Gaming animation elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Controller animation */}
-        <div className="absolute top-1/4 left-20 opacity-5 animate-float" style={{ animationDuration: "15s" }}>
-          <Gamepad2 size={120} />
+        <div className="absolute top-1/4 left-20 opacity-10 animate-float" style={{ animationDuration: "15s" }}>
+          <Gamepad2 size={120} className="text-blue-600" />
         </div>
         
         {/* Console animation */}
-        <div className="absolute bottom-1/4 right-20 opacity-5 animate-float" style={{ animationDuration: "18s", animationDelay: "2s" }}>
-          <Joystick size={100} />
+        <div className="absolute bottom-1/4 right-20 opacity-10 animate-float" style={{ animationDuration: "18s", animationDelay: "2s" }}>
+          <Joystick size={100} className="text-blue-600" />
+        </div>
+        
+        {/* Timer animation */}
+        <div className="absolute top-1/3 right-1/4 opacity-10 animate-float" style={{ animationDuration: "12s", animationDelay: "1s" }}>
+          <Timer size={80} className="text-blue-600" />
         </div>
         
         {/* Gaming pattern */}
-        <div className="absolute inset-0 bg-[radial-gradient(#0AFFFF_1px,transparent_1px)] opacity-5" style={{ backgroundSize: "30px 30px" }}></div>
+        <div className="absolute inset-0 bg-[radial-gradient(#3B82F6_1px,transparent_1px)] opacity-5" style={{ backgroundSize: "30px 30px" }}></div>
       </div>
       
       <Navbar />
@@ -37,82 +62,133 @@ const Games = () => {
         <section className="section">
           <div className="container mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-gradient">Re-Games</span>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-blue-600">
+                Re-Games
               </h1>
-              <p className="text-white/70 max-w-2xl mx-auto">
+              <p className="text-gray-700 max-w-2xl mx-auto">
                 Our collection of immersive gaming experiences powered by cutting-edge AI technology.
               </p>
             </div>
             
-            {/* Game list in HTML structure */}
+            {/* Game list in Cards */}
             <div className="mt-8">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Games</h2>
+              <h2 className="text-2xl font-bold text-blue-600 mb-6">Featured Games</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Game 1 */}
-                <div className="glass-card rounded-xl p-6 flex flex-col">
-                  <div className="mb-4 text-review-cyan">
-                    <Gamepad2 className="w-12 h-12" />
-                  </div>
-                  <h3 className="text-white font-semibold text-xl mb-2">Game Name 1</h3>
-                  <p className="text-white/60 mb-4">Game description goes here. Replace this text with your game information.</p>
-                  <div className="mt-auto">
-                    <a href="#" className="btn-primary inline-block">Play Now</a>
-                  </div>
-                </div>
+                <Card className="border-blue-200 shadow-md bg-gray-50">
+                  <CardHeader>
+                    <div className="mb-4 text-blue-500">
+                      <Gamepad2 className="w-12 h-12" />
+                    </div>
+                    <CardTitle className="text-blue-700">Cyber Racers</CardTitle>
+                    <CardDescription className="text-gray-600">
+                      A high-speed racing game set in a futuristic cyberpunk world. Customize your vehicle and compete against AI or human players.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex gap-2 mb-2">
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Racing</span>
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Multiplayer</span>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button 
+                      className="w-full bg-blue-600 hover:bg-blue-700"
+                      onClick={() => handlePlayNow("Cyber Racers")}
+                    >
+                      Play Now
+                    </Button>
+                  </CardFooter>
+                </Card>
                 
                 {/* Game 2 */}
-                <div className="glass-card rounded-xl p-6 flex flex-col">
-                  <div className="mb-4 text-review-cyan">
-                    <Gamepad2 className="w-12 h-12" />
-                  </div>
-                  <h3 className="text-white font-semibold text-xl mb-2">Game Name 2</h3>
-                  <p className="text-white/60 mb-4">Game description goes here. Replace this text with your game information.</p>
-                  <div className="mt-auto">
-                    <a href="#" className="btn-primary inline-block">Play Now</a>
-                  </div>
-                </div>
+                <Card className="border-blue-200 shadow-md bg-gray-50">
+                  <CardHeader>
+                    <div className="mb-4 text-blue-500">
+                      <Gamepad2 className="w-12 h-12" />
+                    </div>
+                    <CardTitle className="text-blue-700">Cosmic Defenders</CardTitle>
+                    <CardDescription className="text-gray-600">
+                      An epic space adventure game where you defend your galaxy against alien invaders. Upgrade your weapons and unlock new abilities.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex gap-2 mb-2">
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Action</span>
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Strategy</span>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button 
+                      className="w-full bg-blue-600 hover:bg-blue-700"
+                      onClick={() => handlePlayNow("Cosmic Defenders")}
+                    >
+                      Play Now
+                    </Button>
+                  </CardFooter>
+                </Card>
                 
                 {/* Game 3 */}
-                <div className="glass-card rounded-xl p-6 flex flex-col">
-                  <div className="mb-4 text-review-cyan">
-                    <Gamepad2 className="w-12 h-12" />
-                  </div>
-                  <h3 className="text-white font-semibold text-xl mb-2">Game Name 3</h3>
-                  <p className="text-white/60 mb-4">Game description goes here. Replace this text with your game information.</p>
-                  <div className="mt-auto">
-                    <a href="#" className="btn-primary inline-block">Play Now</a>
-                  </div>
-                </div>
+                <Card className="border-blue-200 shadow-md bg-gray-50">
+                  <CardHeader>
+                    <div className="mb-4 text-blue-500">
+                      <Gamepad2 className="w-12 h-12" />
+                    </div>
+                    <CardTitle className="text-blue-700">Puzzle Master</CardTitle>
+                    <CardDescription className="text-gray-600">
+                      Challenge your brain with hundreds of unique puzzles. From simple to mind-bending, there's something for everyone.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex gap-2 mb-2">
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Puzzle</span>
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Casual</span>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button 
+                      className="w-full bg-blue-600 hover:bg-blue-700"
+                      onClick={() => handlePlayNow("Puzzle Master")}
+                    >
+                      Play Now
+                    </Button>
+                  </CardFooter>
+                </Card>
               </div>
             </div>
             
             {/* Upcoming Games Section */}
             <div className="mt-16">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6">Upcoming Releases</h2>
+              <h2 className="text-2xl font-bold text-blue-600 mb-6">Upcoming Releases</h2>
               
-              <div className="glass-card rounded-xl p-8">
-                <div className="mb-4 text-center">
-                  <p className="text-white/70 mb-6">
+              <Card className="border-blue-200 shadow-md bg-gray-50 p-6">
+                <div className="text-center">
+                  <p className="text-gray-700 mb-6">
                     We're constantly developing new gaming experiences. Check back soon for our upcoming releases!
                   </p>
                   
-                  <h3 className="text-white text-lg font-semibold mb-2">Want to be notified about new games?</h3>
+                  <h3 className="text-blue-700 text-lg font-semibold mb-2">Want to be notified about new games?</h3>
                   
-                  {/* Simple email signup form */}
-                  <div className="max-w-md mx-auto">
+                  {/* Email signup form */}
+                  <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
                     <div className="flex flex-col sm:flex-row gap-2">
                       <input 
                         type="email" 
+                        name="email"
                         placeholder="Your email address" 
-                        className="bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white flex-grow"
+                        className="bg-white border border-blue-300 rounded px-4 py-2 text-gray-700 flex-grow"
                       />
-                      <button className="btn-primary">Subscribe</button>
+                      <Button 
+                        type="submit"
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        Subscribe
+                      </Button>
                     </div>
-                  </div>
+                  </form>
                 </div>
-              </div>
+              </Card>
             </div>
           </div>
         </section>
