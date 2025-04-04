@@ -40,17 +40,17 @@ const Games = () => {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Controller animation */}
         <div className="absolute top-1/4 left-20 opacity-10 animate-float" style={{ animationDuration: "15s" }}>
-          <Gamepad2 size={120} className="text-blue-600" />
+          <Gamepad2 size={120} className="text-blue-500" />
         </div>
         
         {/* Console animation */}
         <div className="absolute bottom-1/4 right-20 opacity-10 animate-float" style={{ animationDuration: "18s", animationDelay: "2s" }}>
-          <Joystick size={100} className="text-blue-600" />
+          <Joystick size={100} className="text-blue-500" />
         </div>
         
         {/* Timer animation */}
         <div className="absolute top-1/3 right-1/4 opacity-10 animate-float" style={{ animationDuration: "12s", animationDelay: "1s" }}>
-          <Timer size={80} className="text-blue-600" />
+          <Timer size={80} className="text-blue-500" />
         </div>
         
         {/* Gaming pattern */}
@@ -76,7 +76,7 @@ const Games = () => {
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Game 1 */}
-                <Card className="border-blue-200 shadow-md bg-gray-50">
+                <Card className="border-blue-100 shadow-md bg-white hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="mb-4 text-blue-500">
                       <Gamepad2 className="w-12 h-12" />
@@ -88,8 +88,8 @@ const Games = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="flex gap-2 mb-2">
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Racing</span>
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Multiplayer</span>
+                      <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Racing</span>
+                      <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Multiplayer</span>
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -103,7 +103,7 @@ const Games = () => {
                 </Card>
                 
                 {/* Game 2 */}
-                <Card className="border-blue-200 shadow-md bg-gray-50">
+                <Card className="border-blue-100 shadow-md bg-white hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="mb-4 text-blue-500">
                       <Gamepad2 className="w-12 h-12" />
@@ -115,8 +115,8 @@ const Games = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="flex gap-2 mb-2">
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Action</span>
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Strategy</span>
+                      <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Action</span>
+                      <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Strategy</span>
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -130,7 +130,7 @@ const Games = () => {
                 </Card>
                 
                 {/* Game 3 */}
-                <Card className="border-blue-200 shadow-md bg-gray-50">
+                <Card className="border-blue-100 shadow-md bg-white hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="mb-4 text-blue-500">
                       <Gamepad2 className="w-12 h-12" />
@@ -142,8 +142,8 @@ const Games = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="flex gap-2 mb-2">
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Puzzle</span>
-                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">Casual</span>
+                      <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Puzzle</span>
+                      <span className="bg-blue-50 text-blue-600 text-xs font-medium px-2.5 py-0.5 rounded">Casual</span>
                     </div>
                   </CardContent>
                   <CardFooter>
@@ -162,7 +162,7 @@ const Games = () => {
             <div className="mt-16">
               <h2 className="text-2xl font-bold text-blue-600 mb-6">Upcoming Releases</h2>
               
-              <Card className="border-blue-200 shadow-md bg-gray-50 p-6">
+              <Card className="border-blue-100 shadow-md bg-white p-6">
                 <div className="text-center">
                   <p className="text-gray-700 mb-6">
                     We're constantly developing new gaming experiences. Check back soon for our upcoming releases!
@@ -177,7 +177,7 @@ const Games = () => {
                         type="email" 
                         name="email"
                         placeholder="Your email address" 
-                        className="bg-white border border-blue-300 rounded px-4 py-2 text-gray-700 flex-grow"
+                        className="bg-white border border-blue-200 rounded px-4 py-2 text-gray-700 flex-grow"
                       />
                       <Button 
                         type="submit"
