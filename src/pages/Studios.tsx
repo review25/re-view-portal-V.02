@@ -4,7 +4,6 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
 import { Laptop, Smartphone, Code } from "lucide-react";
-import AnimatedCard from "../components/shared/AnimatedCard";
 
 const Studios = () => {
   useEffect(() => {
@@ -44,25 +43,109 @@ const Studios = () => {
       <Navbar />
       <main className="flex-grow pt-24 relative z-10">
         <section className="section">
-          <div className="container mx-auto text-center">
-            <AnimatedCard>
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 <span className="text-gradient">View-Studios</span>
               </h1>
               <p className="text-white/70 max-w-2xl mx-auto">
-                Explore our professionally designed web applications and websites powered by AI, ML, and secure Cybersecurity infrastructure. The complete View-Studios page is coming soon with our full portfolio.
+                Professionally designed web applications and websites powered by AI, ML, and secure Cybersecurity infrastructure.
               </p>
-            </AnimatedCard>
+            </div>
             
-            {/* Placeholder for project grid - will be properly implemented later */}
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((item) => (
-                <AnimatedCard key={item} delay={item * 150} className="glass-card rounded-xl p-6 h-64 flex flex-col justify-center items-center">
-                  <Code className="w-12 h-12 text-review-cyan mb-4" />
-                  <h3 className="text-white font-semibold text-xl">Coming Soon</h3>
-                  <p className="text-white/60 mt-2">Innovative AI applications in development</p>
-                </AnimatedCard>
-              ))}
+            {/* Services in HTML structure */}
+            <div className="mb-16">
+              <h2 className="text-2xl font-bold text-review-cyan mb-6">Our Services</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="glass-card p-6 rounded-xl">
+                  <h3 className="text-white text-xl font-semibold mb-3">Web Development</h3>
+                  <p className="text-white/70">Custom websites and web applications built with the latest technologies.</p>
+                </div>
+                
+                <div className="glass-card p-6 rounded-xl">
+                  <h3 className="text-white text-xl font-semibold mb-3">Mobile Apps</h3>
+                  <p className="text-white/70">Native and cross-platform mobile applications for iOS and Android.</p>
+                </div>
+                
+                <div className="glass-card p-6 rounded-xl">
+                  <h3 className="text-white text-xl font-semibold mb-3">AI Integration</h3>
+                  <p className="text-white/70">Adding artificial intelligence capabilities to your applications.</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Projects in HTML structure */}
+            <div>
+              <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Projects</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Project 1 */}
+                <div className="glass-card rounded-xl overflow-hidden">
+                  <div className="h-48 bg-review-black/50 flex items-center justify-center">
+                    <Code className="w-16 h-16 text-review-cyan" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-white font-semibold text-xl mb-2">Project Name 1</h3>
+                    <p className="text-white/60 mb-4">Project description goes here. Replace this text with your project details.</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">React</span>
+                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">AI</span>
+                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Node.js</span>
+                    </div>
+                    <a href="#" className="text-review-cyan hover:text-white transition-colors">View Project →</a>
+                  </div>
+                </div>
+                
+                {/* Project 2 */}
+                <div className="glass-card rounded-xl overflow-hidden">
+                  <div className="h-48 bg-review-black/50 flex items-center justify-center">
+                    <Code className="w-16 h-16 text-review-cyan" />
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-white font-semibold text-xl mb-2">Project Name 2</h3>
+                    <p className="text-white/60 mb-4">Project description goes here. Replace this text with your project details.</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">AI</span>
+                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Machine Learning</span>
+                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Python</span>
+                    </div>
+                    <a href="#" className="text-review-cyan hover:text-white transition-colors">View Project →</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Contact Form */}
+            <div className="mt-16 glass-card rounded-xl p-8">
+              <h2 className="text-2xl font-bold text-review-cyan mb-6">Contact Us</h2>
+              
+              <form className="max-w-2xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label className="block text-white mb-2">Name</label>
+                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-white mb-2">Email</label>
+                    <input type="email" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                  </div>
+                </div>
+                
+                <div className="mb-6">
+                  <label className="block text-white mb-2">Subject</label>
+                  <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                </div>
+                
+                <div className="mb-6">
+                  <label className="block text-white mb-2">Message</label>
+                  <textarea rows={4} className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white"></textarea>
+                </div>
+                
+                <div className="text-center">
+                  <button type="submit" className="btn-primary">Send Message</button>
+                </div>
+              </form>
             </div>
           </div>
         </section>

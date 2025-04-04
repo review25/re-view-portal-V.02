@@ -4,7 +4,6 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
 import { Lightbulb, Cpu, FlaskConical } from "lucide-react";
-import AnimatedCard from "../components/shared/AnimatedCard";
 
 const Labs = () => {
   useEffect(() => {
@@ -48,25 +47,172 @@ const Labs = () => {
       <Navbar />
       <main className="flex-grow pt-24 relative z-10">
         <section className="section">
-          <div className="container mx-auto text-center">
-            <AnimatedCard>
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 <span className="text-gradient">N-8 Labs</span>
               </h1>
               <p className="text-white/70 max-w-2xl mx-auto">
-                Discover our innovative ECE/EEE project kits for B.Tech students, featuring AI-powered educational tools and machine learning interfaces. The complete N-8 Labs catalog is coming soon with detailed project information.
+                Innovative ECE/EEE project kits for B.Tech students, featuring AI-powered educational tools and machine learning interfaces.
               </p>
-            </AnimatedCard>
+            </div>
             
-            {/* Placeholder for kit grid - will be properly implemented later */}
-            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[1, 2, 3].map((item) => (
-                <AnimatedCard key={item} delay={item * 150} className="glass-card rounded-xl p-6 h-64 flex flex-col justify-center items-center">
-                  <FlaskConical className="w-12 h-12 text-review-cyan mb-4" />
-                  <h3 className="text-white font-semibold text-xl">Coming Soon</h3>
-                  <p className="text-white/60 mt-2">Educational kits are in development</p>
-                </AnimatedCard>
-              ))}
+            {/* Project Categories in HTML structure */}
+            <div className="mb-16">
+              <h2 className="text-2xl font-bold text-review-cyan mb-6">Project Categories</h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="glass-card p-6 rounded-xl text-center">
+                  <div className="w-16 h-16 mx-auto bg-review-cyan/10 rounded-full flex items-center justify-center mb-4">
+                    <Cpu className="w-8 h-8 text-review-cyan" />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-2">Mini Projects</h3>
+                  <p className="text-white/70">Smaller-scale projects perfect for beginners and short timeframes.</p>
+                </div>
+                
+                <div className="glass-card p-6 rounded-xl text-center">
+                  <div className="w-16 h-16 mx-auto bg-review-cyan/10 rounded-full flex items-center justify-center mb-4">
+                    <FlaskConical className="w-8 h-8 text-review-cyan" />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-2">Major Projects</h3>
+                  <p className="text-white/70">Comprehensive projects ideal for final year students and deeper learning.</p>
+                </div>
+                
+                <div className="glass-card p-6 rounded-xl text-center">
+                  <div className="w-16 h-16 mx-auto bg-review-cyan/10 rounded-full flex items-center justify-center mb-4">
+                    <Lightbulb className="w-8 h-8 text-review-cyan" />
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-2">Research Projects</h3>
+                  <p className="text-white/70">Cutting-edge research-oriented projects with publication potential.</p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Featured Projects in HTML structure */}
+            <div>
+              <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Project Kits</h2>
+              
+              <div className="space-y-6">
+                {/* Project 1 */}
+                <div className="glass-card rounded-xl p-6">
+                  <div className="flex flex-col md:flex-row gap-6">
+                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-review-black/50 rounded-lg">
+                      <FlaskConical className="w-16 h-16 text-review-cyan" />
+                    </div>
+                    <div className="md:w-3/4">
+                      <h3 className="text-white font-semibold text-xl mb-2">IoT-Based Smart Home Automation System</h3>
+                      <p className="text-white/70 mb-4">
+                        A comprehensive kit for building a smart home system using IoT technologies, with motion sensors, temperature control, and smartphone app integration.
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">IoT</span>
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Arduino</span>
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">App Development</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-review-cyan font-semibold">₹5,999</span>
+                        <a href="#" className="btn-primary">View Details</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Project 2 */}
+                <div className="glass-card rounded-xl p-6">
+                  <div className="flex flex-col md:flex-row gap-6">
+                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-review-black/50 rounded-lg">
+                      <Cpu className="w-16 h-16 text-review-cyan" />
+                    </div>
+                    <div className="md:w-3/4">
+                      <h3 className="text-white font-semibold text-xl mb-2">AI-Powered Facial Recognition System</h3>
+                      <p className="text-white/70 mb-4">
+                        Build a facial recognition system using machine learning algorithms, with complete hardware and software components.
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">AI</span>
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Machine Learning</span>
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Computer Vision</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-review-cyan font-semibold">₹7,499</span>
+                        <a href="#" className="btn-primary">View Details</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Project 3 */}
+                <div className="glass-card rounded-xl p-6">
+                  <div className="flex flex-col md:flex-row gap-6">
+                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-review-black/50 rounded-lg">
+                      <Lightbulb className="w-16 h-16 text-review-cyan" />
+                    </div>
+                    <div className="md:w-3/4">
+                      <h3 className="text-white font-semibold text-xl mb-2">Renewable Energy Monitoring System</h3>
+                      <p className="text-white/70 mb-4">
+                        A solar and wind energy monitoring system with real-time data analytics and energy efficiency calculations.
+                      </p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Renewable Energy</span>
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Data Analytics</span>
+                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Sensors</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-review-cyan font-semibold">₹6,299</span>
+                        <a href="#" className="btn-primary">View Details</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            {/* Order Form */}
+            <div className="mt-16 glass-card rounded-xl p-8">
+              <h2 className="text-2xl font-bold text-review-cyan mb-6 text-center">Request Project Kit Information</h2>
+              
+              <form className="max-w-2xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label className="block text-white mb-2">Full Name</label>
+                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-white mb-2">Email</label>
+                    <input type="email" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label className="block text-white mb-2">College/University</label>
+                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                  </div>
+                  <div>
+                    <label className="block text-white mb-2">Project Type</label>
+                    <select className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white">
+                      <option value="">Select a project type</option>
+                      <option value="mini">Mini Project</option>
+                      <option value="major">Major Project</option>
+                      <option value="research">Research Project</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div className="mb-6">
+                  <label className="block text-white mb-2">Project Area of Interest</label>
+                  <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" placeholder="e.g., IoT, Machine Learning, Robotics" />
+                </div>
+                
+                <div className="mb-6">
+                  <label className="block text-white mb-2">Additional Requirements</label>
+                  <textarea rows={4} className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white"></textarea>
+                </div>
+                
+                <div className="text-center">
+                  <button type="submit" className="btn-primary">Submit Request</button>
+                </div>
+              </form>
             </div>
           </div>
         </section>
