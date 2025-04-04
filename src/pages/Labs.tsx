@@ -15,29 +15,29 @@ const Labs = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-review-black">
+    <div className="min-h-screen flex flex-col bg-white">
       {/* Lab animation elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Lightbulb animation */}
-        <div className="absolute top-1/4 left-20 opacity-5 animate-pulse-glow" style={{ animationDuration: "4s" }}>
-          <Lightbulb size={120} />
+        <div className="absolute top-1/4 left-20 opacity-10 animate-pulse-glow" style={{ animationDuration: "4s" }}>
+          <Lightbulb size={120} className="text-blue-500" />
         </div>
         
         {/* Flask animation */}
-        <div className="absolute bottom-1/4 right-20 opacity-5 animate-float" style={{ animationDuration: "10s" }}>
-          <FlaskConical size={100} />
+        <div className="absolute bottom-1/4 right-20 opacity-10 animate-float" style={{ animationDuration: "10s" }}>
+          <FlaskConical size={100} className="text-blue-500" />
         </div>
         
         {/* Chip animation */}
-        <div className="absolute top-2/3 left-1/3 opacity-5 animate-float" style={{ animationDuration: "15s", animationDelay: "2s" }}>
-          <Cpu size={80} />
+        <div className="absolute top-2/3 left-1/3 opacity-10 animate-float" style={{ animationDuration: "15s", animationDelay: "2s" }}>
+          <Cpu size={80} className="text-blue-500" />
         </div>
         
         {/* Chemistry pattern */}
         <div className="absolute inset-0">
           <svg width="100%" height="100%" className="opacity-5">
             <pattern id="hexagons" width="50" height="43.4" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-              <polygon points="25,0 50,14.4 50,43.4 25,57.7 0,43.4 0,14.4" fill="none" stroke="rgba(10, 255, 255, 0.2)" strokeWidth="0.5"></polygon>
+              <polygon points="25,0 50,14.4 50,43.4 25,57.7 0,43.4 0,14.4" fill="none" stroke="rgba(59, 130, 246, 0.2)" strokeWidth="0.5"></polygon>
             </pattern>
             <rect width="100%" height="100%" fill="url(#hexagons)"></rect>
           </svg>
@@ -49,68 +49,68 @@ const Labs = () => {
         <section className="section">
           <div className="container mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-gradient">N-8 Labs</span>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-blue-600">
+                N-8 Labs
               </h1>
-              <p className="text-white/70 max-w-2xl mx-auto">
+              <p className="text-gray-700 max-w-2xl mx-auto">
                 Innovative ECE/EEE project kits for B.Tech students, featuring AI-powered educational tools and machine learning interfaces.
               </p>
             </div>
             
             {/* Project Categories in HTML structure */}
             <div className="mb-16">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6">Project Categories</h2>
+              <h2 className="text-2xl font-bold text-blue-600 mb-6">Project Categories</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="glass-card p-6 rounded-xl text-center">
-                  <div className="w-16 h-16 mx-auto bg-review-cyan/10 rounded-full flex items-center justify-center mb-4">
-                    <Cpu className="w-8 h-8 text-review-cyan" />
+                  <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <Cpu className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="text-white text-xl font-semibold mb-2">Mini Projects</h3>
-                  <p className="text-white/70">Smaller-scale projects perfect for beginners and short timeframes.</p>
+                  <h3 className="text-blue-700 text-xl font-semibold mb-2">Mini Projects</h3>
+                  <p className="text-gray-600">Smaller-scale projects perfect for beginners and short timeframes.</p>
                 </div>
                 
                 <div className="glass-card p-6 rounded-xl text-center">
-                  <div className="w-16 h-16 mx-auto bg-review-cyan/10 rounded-full flex items-center justify-center mb-4">
-                    <FlaskConical className="w-8 h-8 text-review-cyan" />
+                  <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <FlaskConical className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="text-white text-xl font-semibold mb-2">Major Projects</h3>
-                  <p className="text-white/70">Comprehensive projects ideal for final year students and deeper learning.</p>
+                  <h3 className="text-blue-700 text-xl font-semibold mb-2">Major Projects</h3>
+                  <p className="text-gray-600">Comprehensive projects ideal for final year students and deeper learning.</p>
                 </div>
                 
                 <div className="glass-card p-6 rounded-xl text-center">
-                  <div className="w-16 h-16 mx-auto bg-review-cyan/10 rounded-full flex items-center justify-center mb-4">
-                    <Lightbulb className="w-8 h-8 text-review-cyan" />
+                  <div className="w-16 h-16 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <Lightbulb className="w-8 h-8 text-blue-600" />
                   </div>
-                  <h3 className="text-white text-xl font-semibold mb-2">Research Projects</h3>
-                  <p className="text-white/70">Cutting-edge research-oriented projects with publication potential.</p>
+                  <h3 className="text-blue-700 text-xl font-semibold mb-2">Research Projects</h3>
+                  <p className="text-gray-600">Cutting-edge research-oriented projects with publication potential.</p>
                 </div>
               </div>
             </div>
             
             {/* Featured Projects in HTML structure */}
             <div>
-              <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Project Kits</h2>
+              <h2 className="text-2xl font-bold text-blue-600 mb-6">Featured Project Kits</h2>
               
               <div className="space-y-6">
                 {/* Project 1 */}
                 <div className="glass-card rounded-xl p-6">
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-review-black/50 rounded-lg">
-                      <FlaskConical className="w-16 h-16 text-review-cyan" />
+                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-blue-50 rounded-lg">
+                      <FlaskConical className="w-16 h-16 text-blue-600" />
                     </div>
                     <div className="md:w-3/4">
-                      <h3 className="text-white font-semibold text-xl mb-2">IoT-Based Smart Home Automation System</h3>
-                      <p className="text-white/70 mb-4">
+                      <h3 className="text-blue-700 font-semibold text-xl mb-2">IoT-Based Smart Home Automation System</h3>
+                      <p className="text-gray-600 mb-4">
                         A comprehensive kit for building a smart home system using IoT technologies, with motion sensors, temperature control, and smartphone app integration.
                       </p>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">IoT</span>
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Arduino</span>
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">App Development</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">IoT</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Arduino</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">App Development</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-review-cyan font-semibold">₹5,999</span>
+                        <span className="text-blue-600 font-semibold">₹5,999</span>
                         <a href="#" className="btn-primary">View Details</a>
                       </div>
                     </div>
@@ -120,21 +120,21 @@ const Labs = () => {
                 {/* Project 2 */}
                 <div className="glass-card rounded-xl p-6">
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-review-black/50 rounded-lg">
-                      <Cpu className="w-16 h-16 text-review-cyan" />
+                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-blue-50 rounded-lg">
+                      <Cpu className="w-16 h-16 text-blue-600" />
                     </div>
                     <div className="md:w-3/4">
-                      <h3 className="text-white font-semibold text-xl mb-2">AI-Powered Facial Recognition System</h3>
-                      <p className="text-white/70 mb-4">
+                      <h3 className="text-blue-700 font-semibold text-xl mb-2">AI-Powered Facial Recognition System</h3>
+                      <p className="text-gray-600 mb-4">
                         Build a facial recognition system using machine learning algorithms, with complete hardware and software components.
                       </p>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">AI</span>
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Machine Learning</span>
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Computer Vision</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">AI</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Machine Learning</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Computer Vision</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-review-cyan font-semibold">₹7,499</span>
+                        <span className="text-blue-600 font-semibold">₹7,499</span>
                         <a href="#" className="btn-primary">View Details</a>
                       </div>
                     </div>
@@ -144,21 +144,21 @@ const Labs = () => {
                 {/* Project 3 */}
                 <div className="glass-card rounded-xl p-6">
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-review-black/50 rounded-lg">
-                      <Lightbulb className="w-16 h-16 text-review-cyan" />
+                    <div className="md:w-1/4 flex items-center justify-center p-4 bg-blue-50 rounded-lg">
+                      <Lightbulb className="w-16 h-16 text-blue-600" />
                     </div>
                     <div className="md:w-3/4">
-                      <h3 className="text-white font-semibold text-xl mb-2">Renewable Energy Monitoring System</h3>
-                      <p className="text-white/70 mb-4">
+                      <h3 className="text-blue-700 font-semibold text-xl mb-2">Renewable Energy Monitoring System</h3>
+                      <p className="text-gray-600 mb-4">
                         A solar and wind energy monitoring system with real-time data analytics and energy efficiency calculations.
                       </p>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Renewable Energy</span>
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Data Analytics</span>
-                        <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Sensors</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Renewable Energy</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Data Analytics</span>
+                        <span className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">Sensors</span>
                       </div>
                       <div className="flex items-center justify-between">
-                        <span className="text-review-cyan font-semibold">₹6,299</span>
+                        <span className="text-blue-600 font-semibold">₹6,299</span>
                         <a href="#" className="btn-primary">View Details</a>
                       </div>
                     </div>
@@ -169,28 +169,28 @@ const Labs = () => {
             
             {/* Order Form */}
             <div className="mt-16 glass-card rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6 text-center">Request Project Kit Information</h2>
+              <h2 className="text-2xl font-bold text-blue-600 mb-6 text-center">Request Project Kit Information</h2>
               
               <form className="max-w-2xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label className="block text-white mb-2">Full Name</label>
-                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                    <label className="block text-gray-700 mb-2">Full Name</label>
+                    <input type="text" className="w-full bg-white border border-blue-200 rounded px-4 py-2 text-gray-700" />
                   </div>
                   <div>
-                    <label className="block text-white mb-2">Email</label>
-                    <input type="email" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                    <label className="block text-gray-700 mb-2">Email</label>
+                    <input type="email" className="w-full bg-white border border-blue-200 rounded px-4 py-2 text-gray-700" />
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
-                    <label className="block text-white mb-2">College/University</label>
-                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" />
+                    <label className="block text-gray-700 mb-2">College/University</label>
+                    <input type="text" className="w-full bg-white border border-blue-200 rounded px-4 py-2 text-gray-700" />
                   </div>
                   <div>
-                    <label className="block text-white mb-2">Project Type</label>
-                    <select className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white">
+                    <label className="block text-gray-700 mb-2">Project Type</label>
+                    <select className="w-full bg-white border border-blue-200 rounded px-4 py-2 text-gray-700">
                       <option value="">Select a project type</option>
                       <option value="mini">Mini Project</option>
                       <option value="major">Major Project</option>
@@ -200,13 +200,13 @@ const Labs = () => {
                 </div>
                 
                 <div className="mb-6">
-                  <label className="block text-white mb-2">Project Area of Interest</label>
-                  <input type="text" className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white" placeholder="e.g., IoT, Machine Learning, Robotics" />
+                  <label className="block text-gray-700 mb-2">Project Area of Interest</label>
+                  <input type="text" className="w-full bg-white border border-blue-200 rounded px-4 py-2 text-gray-700" placeholder="e.g., IoT, Machine Learning, Robotics" />
                 </div>
                 
                 <div className="mb-6">
-                  <label className="block text-white mb-2">Additional Requirements</label>
-                  <textarea rows={4} className="w-full bg-review-black/50 border border-review-cyan/30 rounded px-4 py-2 text-white"></textarea>
+                  <label className="block text-gray-700 mb-2">Additional Requirements</label>
+                  <textarea rows={4} className="w-full bg-white border border-blue-200 rounded px-4 py-2 text-gray-700"></textarea>
                 </div>
                 
                 <div className="text-center">
