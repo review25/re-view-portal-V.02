@@ -5,23 +5,23 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
 
     --primary: 221 83% 53%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 210 20% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 210 20% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 16% 70%;
 
     --accent: 221 83% 53%;
     --accent-foreground: 210 40% 98%;
@@ -29,23 +29,23 @@
     --destructive: 0 85% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
+    --border: 217 33% 25%;
+    --input: 217 33% 25%;
     --ring: 221 83% 53%;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 222 47% 11%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 20% 96%;
-    --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214 32% 91%;
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 25%;
     --sidebar-ring: 221 83% 53%;
     
     /* Custom colors that remain consistent between themes */
-    --review-cyan: 221 83% 53%;  /* #2563EB - Changed to a nice blue */
+    --review-cyan: 191 100% 50%;  /* #0AFFFF - Original cyan color */
   }
 }
 
@@ -66,34 +66,34 @@
 
 @layer components {
   .glass-morphism {
-    @apply backdrop-blur-sm bg-white/80 border border-blue-200 shadow-[0_4px_12px_-2px_rgba(0,0,0,0.1)];
+    @apply backdrop-blur-sm bg-black/80 border border-review-cyan/20 shadow-[0_4px_12px_-2px_rgba(10,255,255,0.1)];
   }
   
   .glass-card {
-    @apply bg-white/90 backdrop-blur-sm border border-blue-200 shadow-[0_8px_32px_rgba(37,99,235,0.1)];
+    @apply bg-black/90 backdrop-blur-sm border border-review-cyan/20 shadow-[0_8px_32px_rgba(10,255,255,0.1)];
   }
   
   .glass-nav {
-    @apply bg-white/90 backdrop-blur-md border-b border-blue-100;
+    @apply bg-black/90 backdrop-blur-md border-b border-review-cyan/10;
   }
   
   .text-gradient {
-    @apply bg-gradient-to-br from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent;
+    @apply bg-gradient-to-br from-review-cyan via-blue-400 to-blue-500 bg-clip-text text-transparent;
   }
   
   .text-shadow {
-    text-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+    text-shadow: 0 0 10px rgba(10, 255, 255, 0.3);
   }
   
   .btn-primary {
-    @apply bg-white hover:bg-gray-50 text-blue-600 border border-blue-200 shadow-[0_0_15px_rgba(37,99,235,0.1)] 
-    hover:shadow-[0_0_20px_rgba(37,99,235,0.2)] transition-all duration-300 
+    @apply bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30 shadow-[0_0_15px_rgba(10,255,255,0.1)] 
+    hover:shadow-[0_0_20px_rgba(10,255,255,0.2)] transition-all duration-300 
     rounded-md px-6 py-2 font-medium tracking-wide;
   }
 
   .btn-secondary {
-    @apply bg-transparent hover:bg-blue-50 text-blue-600 border border-blue-200
-    shadow-none hover:shadow-[0_0_10px_rgba(37,99,235,0.1)] transition-all duration-300
+    @apply bg-transparent hover:bg-review-cyan/10 text-review-cyan border border-review-cyan/30
+    shadow-none hover:shadow-[0_0_10px_rgba(10,255,255,0.1)] transition-all duration-300
     rounded-md px-4 py-2 font-medium tracking-wide;
   }
   
@@ -102,13 +102,13 @@
   }
   
   .nav-link {
-    @apply relative px-2 py-1 text-sm font-medium tracking-wide text-blue-600 hover:brightness-125 transition-colors duration-300
-    after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-blue-500 
+    @apply relative px-2 py-1 text-sm font-medium tracking-wide text-review-cyan hover:brightness-125 transition-colors duration-300
+    after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-review-cyan 
     after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
   
   .nav-link-active {
-    @apply text-blue-600 after:scale-x-100 brightness-125;
+    @apply text-review-cyan after:scale-x-100 brightness-125;
   }
   
   .appear-animation-10 {
@@ -138,7 +138,7 @@
   width: 4px;
   height: 14px;
   margin-left: 2px;
-  background-color: #2563EB;
+  background-color: #0AFFFF;
   display: inline-block;
   animation: blink 1s infinite;
 }
@@ -150,15 +150,15 @@
 
 /* For neon glow effects */
 .neon-glow {
-  filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.5));
+  filter: drop-shadow(0 0 5px rgba(10, 255, 255, 0.5));
 }
 
 .neon-text {
-  text-shadow: 0 0 5px rgba(37, 99, 235, 0.5), 0 0 10px rgba(37, 99, 235, 0.3);
+  text-shadow: 0 0 5px rgba(10, 255, 255, 0.5), 0 0 10px rgba(10, 255, 255, 0.3);
 }
 
 .neon-border {
-  box-shadow: 0 0 5px rgba(37, 99, 235, 0.5), 0 0 10px rgba(37, 99, 235, 0.3);
+  box-shadow: 0 0 5px rgba(10, 255, 255, 0.5), 0 0 10px rgba(10, 255, 255, 0.3);
 }
 
 .rotate-center {
@@ -167,7 +167,7 @@
 
 /* Tech pattern background with overlay */
 .tech-background {
-  background-image: radial-gradient(rgba(37, 99, 235, 0.1) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(10, 255, 255, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
-  background-color: #ffffff;
+  background-color: #0A1A2A;
 }
