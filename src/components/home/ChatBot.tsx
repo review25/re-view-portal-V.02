@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from "react";
-import { MessageSquare, Send, X, ExternalLink } from "lucide-react";
+import { MessageSquare, Send, X, ExternalLink, Bot } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Message {
@@ -13,7 +13,7 @@ interface Message {
 const initialMessages: Message[] = [
   {
     id: 1,
-    text: "Hello! I'm your Re-View assistant. How can I help you today?",
+    text: "Hello! I'm View Bot, your personal assistant. How can I help you today?",
     isBot: true,
     links: [
       { text: "Tell me about Re-Games", url: "/games" },
@@ -38,6 +38,86 @@ const ChatBot = () => {
     scrollToBottom();
   }, [messages, isTyping]);
 
+  const botResponses = {
+    greetings: [
+      "Hello there! How can I help you today?",
+      "Hi! I'm View Bot. Nice to meet you!",
+      "Hey! What can I do for you today?",
+    ],
+    howAreYou: [
+      "I'm doing great, thank you for asking! How about you?",
+      "I'm functioning perfectly! How can I assist you today?",
+      "All systems operational and ready to help! How are you doing?",
+    ],
+    name: [
+      "I'm View Bot, your friendly assistant for all things Re-View!",
+      "My name is View Bot. I'm here to help you navigate our services.",
+      "I'm View Bot! I was created to assist with Re-View's products and services.",
+    ],
+    thanks: [
+      "You're welcome! Is there anything else I can help you with?",
+      "Anytime! Don't hesitate to ask if you have more questions.",
+      "Happy to help! Let me know if you need anything else.",
+    ],
+    games: [
+      "Re-Games offers exciting mobile and web-based games with immersive experiences. Would you like to explore our games collection?",
+      "Our Re-Games division creates engaging games for various platforms. Check out our latest releases!",
+    ],
+    studios: [
+      "View-Studios specializes in professional web and mobile application development with elegant designs powered by AI and secure infrastructure.",
+      "Our View-Studios team builds cutting-edge applications and websites. Would you like to see our portfolio?",
+    ],
+    labs: [
+      "N-8 Labs provides educational project kits for B.Tech students, particularly for ECE/EEE projects. They're designed to be hands-on and practical.",
+      "N-8 Labs develops innovative project kits for engineering students. Each kit comes with comprehensive documentation and support.",
+    ],
+    about: [
+      "Re-View is a tech company with three main divisions: Re-Games for gaming, View-Studios for application development, and N-8 Labs for educational kits.",
+      "We're a technology company focused on games, professional applications, and educational project kits for engineering students.",
+    ],
+    help: [
+      "I can help you learn about our games, applications, project kits, or assist with account-related queries. What would you like to know?",
+      "I'm here to provide information about Re-View's products and services. Just let me know what you're interested in!",
+    ],
+    default: [
+      "I'm not sure I understand. Could you rephrase that?",
+      "Interesting question! Would you like to know about our games, apps, or project kits?",
+      "I'm still learning! Can I direct you to our games, applications, or project kits instead?",
+    ]
+  };
+
+  const getRandomResponse = (category: keyof typeof botResponses) => {
+    const responses = botResponses[category];
+    const randomIndex = Math.floor(Math.random() * responses.length);
+    return responses[randomIndex];
+  };
+
+  const getCategoryLinks = (category: string) => {
+    switch (category) {
+      case "games":
+        return [{ text: "Explore Games", url: "/games" }];
+      case "studios":
+        return [{ text: "View Applications", url: "/studios" }];
+      case "labs":
+        return [{ text: "Discover Kits", url: "/labs" }];
+      case "about":
+        return [
+          { text: "Games", url: "/games" },
+          { text: "Applications", url: "/studios" },
+          { text: "Project Kits", url: "/labs" },
+        ];
+      case "help":
+        return [
+          { text: "Games", url: "/games" },
+          { text: "Applications", url: "/studios" },
+          { text: "Project Kits", url: "/labs" },
+          { text: "Login / Register", url: "/login" },
+        ];
+      default:
+        return undefined;
+    }
+  };
+
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
 
@@ -51,66 +131,59 @@ const ChatBot = () => {
     setNewMessage("");
     setIsTyping(true);
 
-    // Simulate bot response
+    // Determine the appropriate response based on user input
     setTimeout(() => {
-      let botResponse: Message;
+      const input = newMessage.toLowerCase();
+      let responseCategory: keyof typeof botResponses = "default";
+      let responseText = "";
+      let responseLinks;
 
-      if (newMessage.toLowerCase().includes("game")) {
-        botResponse = {
-          id: messages.length + 2,
-          text: "We offer various games for mobile and web platforms. All our games are showcased on our Re-Games page.",
-          isBot: true,
-          links: [{ text: "Explore Games", url: "/games" }],
-        };
-      } else if (
-        newMessage.toLowerCase().includes("app") ||
-        newMessage.toLowerCase().includes("website") ||
-        newMessage.toLowerCase().includes("studio")
-      ) {
-        botResponse = {
-          id: messages.length + 2,
-          text: "Our View-Studios division develops professional applications and websites with elegant designs.",
-          isBot: true,
-          links: [{ text: "View Applications", url: "/studios" }],
-        };
-      } else if (
-        newMessage.toLowerCase().includes("kit") ||
-        newMessage.toLowerCase().includes("lab") ||
-        newMessage.toLowerCase().includes("project")
-      ) {
-        botResponse = {
-          id: messages.length + 2,
-          text: "N-8 Labs offers educational project kits for B.Tech students, specializing in ECE/EEE projects.",
-          isBot: true,
-          links: [{ text: "Discover Kits", url: "/labs" }],
-        };
-      } else if (
-        newMessage.toLowerCase().includes("login") ||
-        newMessage.toLowerCase().includes("register") ||
-        newMessage.toLowerCase().includes("account")
-      ) {
-        botResponse = {
-          id: messages.length + 2,
-          text: "You can create an account or log in to access our games, applications, and view your tokens.",
-          isBot: true,
-          links: [{ text: "Login / Register", url: "/login" }],
-        };
+      // Analyze user input to determine response category
+      if (input.includes("hi") || input.includes("hello") || input.includes("hey")) {
+        responseCategory = "greetings";
+      } else if (input.includes("how are you") || input.includes("how're you") || input.includes("how r u")) {
+        responseCategory = "howAreYou";
+      } else if (input.includes("your name") || input.includes("who are you")) {
+        responseCategory = "name";
+      } else if (input.includes("thank")) {
+        responseCategory = "thanks";
+      } else if (input.includes("game")) {
+        responseCategory = "games";
+        responseLinks = getCategoryLinks("games");
+      } else if (input.includes("app") || input.includes("website") || input.includes("studio") || input.includes("application")) {
+        responseCategory = "studios";
+        responseLinks = getCategoryLinks("studios");
+      } else if (input.includes("kit") || input.includes("lab") || input.includes("project") || input.includes("educational")) {
+        responseCategory = "labs";
+        responseLinks = getCategoryLinks("labs");
+      } else if (input.includes("about") || input.includes("company") || input.includes("re-view")) {
+        responseCategory = "about";
+        responseLinks = getCategoryLinks("about");
+      } else if (input.includes("help") || input.includes("assist") || input.includes("support")) {
+        responseCategory = "help";
+        responseLinks = getCategoryLinks("help");
+      } else if (input.includes("login") || input.includes("register") || input.includes("account")) {
+        responseText = "You can create an account or log in to access our games, applications, and view your tokens.";
+        responseLinks = [{ text: "Login / Register", url: "/login" }];
       } else {
-        botResponse = {
-          id: messages.length + 2,
-          text: "Thanks for your message! Would you like to explore our different divisions?",
-          isBot: true,
-          links: [
-            { text: "Games", url: "/games" },
-            { text: "Applications", url: "/studios" },
-            { text: "Project Kits", url: "/labs" },
-          ],
-        };
+        responseCategory = "default";
+        responseLinks = getCategoryLinks("help");
       }
+
+      if (!responseText) {
+        responseText = getRandomResponse(responseCategory);
+      }
+
+      const botResponse: Message = {
+        id: messages.length + 2,
+        text: responseText,
+        isBot: true,
+        links: responseLinks,
+      };
 
       setIsTyping(false);
       setMessages((prevMessages) => [...prevMessages, botResponse]);
-    }, 1500);
+    }, 1000 + Math.random() * 500);
   };
 
   return (
@@ -123,7 +196,7 @@ const ChatBot = () => {
         }`}
         aria-label="Open chat"
       >
-        <MessageSquare size={24} />
+        <Bot size={24} />
       </button>
 
       {/* Chat window */}
@@ -138,10 +211,10 @@ const ChatBot = () => {
         <div className="bg-review-gray/30 p-4 border-b border-review-cyan/20 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-review-cyan flex items-center justify-center">
-              <MessageSquare size={16} className="text-review-black" />
+              <Bot size={16} className="text-review-black" />
             </div>
             <div>
-              <h3 className="font-medium text-white">Re-View Assistant</h3>
+              <h3 className="font-medium text-white">View Bot</h3>
               <p className="text-xs text-white/70">Online</p>
             </div>
           </div>
