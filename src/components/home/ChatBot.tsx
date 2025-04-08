@@ -15,11 +15,6 @@ const initialMessages: Message[] = [
     id: 1,
     text: "Hello! I'm View Bot, your personal assistant. How can I help you today?",
     isBot: true,
-    links: [
-      { text: "Tell me about Re-Games", url: "/games" },
-      { text: "Show me View-Studios", url: "/studios" },
-      { text: "What are N-8 Labs?", url: "/labs" }
-    ],
   },
 ];
 
@@ -81,8 +76,8 @@ const ChatBot = () => {
     ],
     default: [
       "I'm not sure I understand. Could you rephrase that?",
-      "Interesting question! Would you like to know about our games, apps, or project kits?",
-      "I'm still learning! Can I direct you to our games, applications, or project kits instead?",
+      "Interesting question! I'm still learning and evolving. Could you ask me something else?",
+      "I'm still learning! Let me know if you need help with our services or just want to chat.",
     ]
   };
 
@@ -93,6 +88,7 @@ const ChatBot = () => {
   };
 
   const getCategoryLinks = (category: string) => {
+    // Only provide links when directly asked about specific services
     switch (category) {
       case "games":
         return [{ text: "Explore Games", url: "/games" }];
@@ -138,6 +134,23 @@ const ChatBot = () => {
       let responseText = "";
       let responseLinks;
 
+      // Check if user is explicitly asking for information about services
+      const askingForGames = input.includes("tell me about games") || 
+                             input.includes("show me games") || 
+                             input.includes("what games");
+      
+      const askingForStudios = input.includes("tell me about studios") || 
+                               input.includes("show me studios") || 
+                               input.includes("what is view-studios");
+      
+      const askingForLabs = input.includes("tell me about labs") || 
+                            input.includes("show me labs") || 
+                            input.includes("what are n-8 labs");
+      
+      const askingForLogin = input.includes("how to login") || 
+                             input.includes("how to register") || 
+                             input.includes("create account");
+
       // Analyze user input to determine response category
       if (input.includes("hi") || input.includes("hello") || input.includes("hey")) {
         responseCategory = "greetings";
@@ -147,27 +160,44 @@ const ChatBot = () => {
         responseCategory = "name";
       } else if (input.includes("thank")) {
         responseCategory = "thanks";
-      } else if (input.includes("game")) {
+      } else if (askingForGames || (input.includes("game") && input.includes("about"))) {
         responseCategory = "games";
         responseLinks = getCategoryLinks("games");
-      } else if (input.includes("app") || input.includes("website") || input.includes("studio") || input.includes("application")) {
+      } else if (askingForStudios || (input.includes("studio") && input.includes("about"))) {
         responseCategory = "studios";
         responseLinks = getCategoryLinks("studios");
-      } else if (input.includes("kit") || input.includes("lab") || input.includes("project") || input.includes("educational")) {
+      } else if (askingForLabs || (input.includes("lab") && input.includes("about"))) {
         responseCategory = "labs";
         responseLinks = getCategoryLinks("labs");
-      } else if (input.includes("about") || input.includes("company") || input.includes("re-view")) {
+      } else if (input.includes("about") && input.includes("company")) {
         responseCategory = "about";
         responseLinks = getCategoryLinks("about");
-      } else if (input.includes("help") || input.includes("assist") || input.includes("support")) {
+      } else if ((input.includes("help") && input.includes("navigate")) || input.includes("guide me")) {
         responseCategory = "help";
         responseLinks = getCategoryLinks("help");
-      } else if (input.includes("login") || input.includes("register") || input.includes("account")) {
+      } else if (askingForLogin) {
         responseText = "You can create an account or log in to access our games, applications, and view your tokens.";
         responseLinks = [{ text: "Login / Register", url: "/login" }];
+      } else if (input.includes("game")) {
+        responseCategory = "games";
+        // Only provide links if specifically asking to see or visit
+        if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
+          responseLinks = getCategoryLinks("games");
+        }
+      } else if (input.includes("app") || input.includes("website") || input.includes("studio") || input.includes("application")) {
+        responseCategory = "studios";
+        // Only provide links if specifically asking to see or visit
+        if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
+          responseLinks = getCategoryLinks("studios");
+        }
+      } else if (input.includes("kit") || input.includes("lab") || input.includes("project") || input.includes("educational")) {
+        responseCategory = "labs";
+        // Only provide links if specifically asking to see or visit
+        if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
+          responseLinks = getCategoryLinks("labs");
+        }
       } else {
         responseCategory = "default";
-        responseLinks = getCategoryLinks("help");
       }
 
       if (!responseText) {
