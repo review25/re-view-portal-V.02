@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { MessageSquare, Send, X, ExternalLink, Bot } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -684,4 +685,59 @@ const ChatBot = () => {
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
                     <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:0.2s]"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:0.4s]"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          <div className="border-t p-3 flex items-center">
+            <input
+              type="text"
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+              placeholder="Type a message..."
+              className="flex-grow bg-gray-100 rounded-full px-4 py-2 focus:outline-none"
+            />
+            <button
+              onClick={handleSendMessage}
+              className="ml-2 bg-review-darkblue text-white rounded-full p-2 hover:bg-blue-700 focus:outline-none"
+            >
+              <Send size={18} />
+            </button>
+          </div>
+
+          <div className="border-t p-3">
+            <div className="text-xs text-gray-500 mb-2">Quick Actions:</div>
+            <div className="flex flex-wrap gap-2">
+              {quickActions.map((action, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleQuickAction(action.url, action.text)}
+                  className="bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs rounded-full px-3 py-1 transition-colors"
+                >
+                  {action.text}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-review-darkblue text-white rounded-full p-3 shadow-lg hover:bg-blue-700 transition-colors focus:outline-none"
+          aria-label="Open chat"
+        >
+          <MessageSquare size={24} />
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default ChatBot;
