@@ -1,14 +1,2 @@
-
-interface BotpressWebChat {
-  init: (config: any) => void;
-  sendEvent: (event: { type: string, [key: string]: any }) => void;
-  mergeConfig: (config: any) => void;
-}
-
-declare global {
-  interface Window {
-    botpressWebChat: BotpressWebChat;
-  }
-}
-
+// This file is kept as a placeholder but no longer contains Botpress-specific types
 export {};
