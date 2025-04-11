@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Hero from "../components/home/Hero";
 import Features from "../components/home/Features";
 import AboutSection from "../components/home/AboutSection";
-import ChatBot from "../components/home/ChatBot";
+import BotpressChat from "../components/home/BotpressChat";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
@@ -25,7 +25,7 @@ const Index = () => {
         <AboutSection />
       </main>
       <Footer />
-      <ChatBot />
+      <BotpressChat />
     </div>
   );
 };
