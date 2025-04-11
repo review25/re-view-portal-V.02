@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from "react";
 import { MessageSquare, Send, X, ExternalLink, Bot } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -32,6 +31,72 @@ const ChatBot = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isTyping]);
+
+  // Helper function for fuzzy matching
+  const fuzzyMatch = (input: string, terms: string[]): boolean => {
+    const normalizedInput = input.toLowerCase();
+    
+    // Direct match first
+    if (terms.some(term => normalizedInput.includes(term.toLowerCase()))) {
+      return true;
+    }
+    
+    // Fuzzy match for typos
+    for (const term of terms) {
+      // For very short terms (3 chars or less), require more precision
+      if (term.length <= 3) {
+        // For short terms, one character can be wrong at most
+        if (levenshteinDistance(normalizedInput, term.toLowerCase()) <= 1) {
+          return true;
+        }
+      } else {
+        // For longer terms, allow more tolerance (30% of characters can be wrong)
+        const maxDistance = Math.ceil(term.length * 0.3);
+        if (levenshteinDistance(normalizedInput, term.toLowerCase()) <= maxDistance) {
+          return true;
+        }
+        
+        // Check if the word is in the phrase with typos
+        const words = normalizedInput.split(/\s+/);
+        for (const word of words) {
+          if (levenshteinDistance(word, term.toLowerCase()) <= maxDistance) {
+            return true;
+          }
+        }
+      }
+    }
+    
+    return false;
+  };
+  
+  // Levenshtein distance calculation for fuzzy matching
+  const levenshteinDistance = (a: string, b: string): number => {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    
+    const matrix = Array(a.length + 1).fill(null).map(() => Array(b.length + 1).fill(null));
+    
+    for (let i = 0; i <= a.length; i++) {
+      matrix[i][0] = i;
+    }
+    
+    for (let j = 0; j <= b.length; j++) {
+      matrix[0][j] = j;
+    }
+    
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1, // deletion
+          matrix[i][j - 1] + 1, // insertion
+          matrix[i - 1][j - 1] + cost // substitution
+        );
+      }
+    }
+    
+    return matrix[a.length][b.length];
+  };
 
   const botResponses = {
     greetings: [
@@ -357,348 +422,221 @@ const ChatBot = () => {
       let responseText = "";
       let responseLinks;
 
-      // Check if user is explicitly asking to see pages
-      const askingForGames = input.includes("tell me about games") || 
-                             input.includes("show me games") || 
-                             input.includes("what games") ||
-                             input.includes("go to games");
-      
-      const askingForStudios = input.includes("tell me about studios") || 
-                               input.includes("show me studios") || 
-                               input.includes("what is view-studios") ||
-                               input.includes("go to studios");
-      
-      const askingForLabs = input.includes("tell me about labs") || 
-                            input.includes("show me labs") || 
-                            input.includes("what are n-8 labs") ||
-                            input.includes("go to labs");
-      
-      const askingForLogin = input.includes("how to login") || 
-                             input.includes("how to register") || 
-                             input.includes("create account");
-
-      // Expanded intent recognition for casual conversations
-      if (input.match(/^(hi|hey|hello|howdy|sup|yo)/i)) {
+      // Enhanced fuzzy matching for intent recognition
+      // Greetings with fuzzy matching
+      if (fuzzyMatch(input, ["hi", "hey", "hello", "howdy", "sup", "yo", "greetings"])) {
         responseCategory = "greetings";
-      } else if (input.match(/how are you|how('re| are) you doing|how('s| is) it going|what('s| is) up/i)) {
+      } 
+      // How are you with fuzzy matching
+      else if (fuzzyMatch(input, ["how are you", "how're you doing", "how's it going", "what's up", "hows it going", "whats up", "hru"])) {
         responseCategory = "howAreYou";
-      } else if (input.match(/your name|who are you|what('s| is) your name/i)) {
+      } 
+      // Name queries with fuzzy matching 
+      else if (fuzzyMatch(input, ["your name", "who are you", "what's your name", "whats your name"])) {
         responseCategory = "name";
-      } else if (input.match(/thank|thanks|thx|ty/i)) {
+      } 
+      // Thanks with fuzzy matching
+      else if (fuzzyMatch(input, ["thank", "thanks", "thx", "ty", "thank you"])) {
         responseCategory = "thanks";
-      } else if (input.match(/i('m| am) bored|bored|nothing to do/i)) {
+      } 
+      // Boredom with fuzzy matching
+      else if (fuzzyMatch(input, ["i'm bored", "im bored", "bored", "nothing to do"])) {
         responseCategory = "bored";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("bored");
         }
-      } else if (input.match(/puzzle|sudoku|brain teaser/i)) {
+      } 
+      // Puzzles with fuzzy matching
+      else if (fuzzyMatch(input, ["puzzle", "sudoku", "brain teaser", "puzle"])) {
         responseCategory = "puzzle";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("puzzle");
         }
-      } else if (input.match(/challenge|difficult|hard|tough|advanced/i)) {
+      } 
+      // Challenges with fuzzy matching
+      else if (fuzzyMatch(input, ["challenge", "difficult", "hard", "tough", "advanced", "chalenge"])) {
         responseCategory = "challenge";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("challenge");
         }
-      } else if (input.match(/newest|latest|new|recent|just launched/i)) {
+      } 
+      // Newest with fuzzy matching 
+      else if (fuzzyMatch(input, ["newest", "latest", "new", "recent", "just launched"])) {
         responseCategory = "newest";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("newest");
         }
-      } else if (input.match(/download|get|install|apk/i)) {
+      } 
+      // Downloads with fuzzy matching
+      else if (fuzzyMatch(input, ["download", "get", "install", "apk", "downlod"])) {
         responseCategory = "download";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("download");
         }
-      } else if (input.match(/offline|without internet|no internet|no wifi/i)) {
+      } 
+      // Offline with fuzzy matching
+      else if (fuzzyMatch(input, ["offline", "without internet", "no internet", "no wifi"])) {
         responseCategory = "offline";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("offline");
         }
-      } else if (input.match(/mobile|phone|tablet|android|ios/i)) {
+      } 
+      // Continue with the rest of the intent recognition 
+      else if (fuzzyMatch(input, ["mobile", "phone", "tablet", "android", "ios"])) {
         responseCategory = "mobile";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("mobile");
         }
-      } else if (input.match(/education|educational|learn|learning/i)) {
+      } 
+      else if (fuzzyMatch(input, ["education", "educational", "learn", "learning"])) {
         responseCategory = "educational";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("educational");
         }
-      } else if (input.match(/horror|scary|spooky|creepy/i)) {
+      } 
+      else if (fuzzyMatch(input, ["horror", "scary", "spooky", "creepy"])) {
         responseCategory = "horror";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("horror");
         }
-      } else if (input.match(/kits?|what('s| is) in|components/i) && !input.match(/studios|games/i)) {
+      } 
+      else if (fuzzyMatch(input, ["kits", "what's in", "whats in", "components"]) && !fuzzyMatch(input, ["studios", "games"])) {
         responseCategory = "kits";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("kits");
         }
-      } else if (input.match(/beginner|starting|novice|new to|first time/i) && input.match(/kits?|project/i)) {
+      } 
+      else if (fuzzyMatch(input, ["beginner", "starting", "novice", "new to", "first time"]) && fuzzyMatch(input, ["kits", "kit", "project"])) {
         responseCategory = "beginnerKits";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("beginnerKits");
         }
-      } else if (input.match(/safe|safety|dangerous|child|kid/i)) {
+      } 
+      else if (fuzzyMatch(input, ["safe", "safety", "dangerous", "child", "kid"])) {
         responseCategory = "safe";
-      } else if (input.match(/robot|robotics|bot|automation/i)) {
+      } 
+      else if (fuzzyMatch(input, ["robot", "robotics", "bot", "automation"])) {
         responseCategory = "robotics";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("robotics");
         }
-      } else if (input.match(/science|project|school|fair|assignment/i)) {
+      } 
+      else if (fuzzyMatch(input, ["science", "project", "school", "fair", "assignment"])) {
         responseCategory = "science";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("science");
         }
-      } else if (input.match(/manual|instruction|guide|documentation/i)) {
+      } 
+      else if (fuzzyMatch(input, ["manual", "manuals", "instruction", "guide", "documentation"])) {
         responseCategory = "manuals";
-      } else if (input.match(/order|buy|purchase|ship/i)) {
+      } 
+      else if (fuzzyMatch(input, ["order", "buy", "purchase", "ship"])) {
         responseCategory = "orderOnline";
-      } else if (input.match(/return|refund|money back|exchange/i)) {
+      } 
+      else if (fuzzyMatch(input, ["return", "refund", "money back", "exchange"])) {
         responseCategory = "returns";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("returns");
         }
-      } else if (input.match(/creative|art|design|craft/i)) {
+      } 
+      else if (fuzzyMatch(input, ["creative", "art", "design", "craft"])) {
         responseCategory = "creative";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("creative");
         }
-      } else if (input.match(/cost|price|how much|expensive|cheap|affordable/i)) {
+      } 
+      else if (fuzzyMatch(input, ["cost", "price", "how much", "expensive", "cheap", "affordable"])) {
         responseCategory = "cost";
-      } else if (input.match(/coolest|best|top|impressive|project/i)) {
+      } 
+      else if (fuzzyMatch(input, ["coolest", "best", "top", "impressive", "project"])) {
         responseCategory = "coolest";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("coolest");
         }
-      } else if (input.match(/test|beta|try|preview|early access/i)) {
+      } 
+      else if (fuzzyMatch(input, ["test", "beta", "try", "preview", "early access"])) {
         responseCategory = "testApps";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("testApps");
         }
-      } else if (input.match(/make|build|create|develop|like this/i)) {
+      } 
+      else if (fuzzyMatch(input, ["make", "build", "create", "develop", "like this"])) {
         responseCategory = "makeSomething";
-      } else if (input.match(/student|teen|young|made by/i)) {
+      } 
+      else if (fuzzyMatch(input, ["student", "teen", "young", "made by"])) {
         responseCategory = "studentMade";
-      } else if (input.match(/open source|github|code|repository|contribute/i)) {
+      } 
+      else if (fuzzyMatch(input, ["open source", "github", "code", "repository", "contribute"])) {
         responseCategory = "openSource";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("openSource");
         }
-      } else if (input.match(/learn|app dev|application|development|coding/i)) {
+      } 
+      else if (fuzzyMatch(input, ["learn", "app dev", "application", "development", "coding"])) {
         responseCategory = "learnAppDev";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("buildApps");
         }
-      } else if (input.match(/intern|internship|job|work|career/i)) {
+      } 
+      else if (fuzzyMatch(input, ["intern", "internship", "job", "work", "career"])) {
         responseCategory = "internships";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("joinReview");
         }
-      } else if (input.match(/confused|don't understand|what is this|help me/i)) {
+      } 
+      else if (fuzzyMatch(input, ["confused", "don't understand", "what is this", "help me"])) {
         responseCategory = "confused";
         responseLinks = getCategoryLinks("confused");
-      } else if (input.match(/cute|nice|cool|awesome|amazing|good/i) && input.includes("you")) {
+      } 
+      else if (fuzzyMatch(input, ["cute", "nice", "cool", "awesome", "amazing", "good"]) && input.includes("you")) {
         responseCategory = "cute";
-      } else if (input.match(/who made|creator|developers|team behind/i)) {
+      } 
+      else if (fuzzyMatch(input, ["who made", "creator", "developers", "team behind"])) {
         responseCategory = "whoMadeYou";
-      } else if (input.match(/join|work (at|with)|become part/i)) {
+      } 
+      else if (fuzzyMatch(input, ["join", "work at", "work with", "become part"])) {
         responseCategory = "joinReview";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("joinReview");
         }
-      } else if (input.match(/build apps|create (app|website|web)/i)) {
+      } 
+      else if (fuzzyMatch(input, ["build apps", "create app", "create website", "create web"])) {
         responseCategory = "buildApps";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("buildApps");
         }
-      } else if (input.match(/blog|article|post|news|updates/i)) {
+      } 
+      else if (fuzzyMatch(input, ["blog", "article", "post", "news", "updates"])) {
         responseCategory = "blog";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("blog");
         }
-      } else if (input.match(/event|workshop|hackathon|meetup|conference/i)) {
+      } 
+      else if (fuzzyMatch(input, ["event", "workshop", "hackathon", "meetup", "conference"])) {
         responseCategory = "events";
         if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
           responseLinks = getCategoryLinks("events");
         }
-      } else if (input.match(/insta|instagram|social|follow|twitter|facebook/i)) {
+      } 
+      else if (fuzzyMatch(input, ["insta", "instagram", "social", "follow", "twitter", "facebook"])) {
         responseCategory = "social";
-      } else if (input.match(/love|like|enjoy|great|wonderful/i) && input.match(/site|website|page/i)) {
+      } 
+      else if (fuzzyMatch(input, ["love", "like", "enjoy", "great", "wonderful"]) && fuzzyMatch(input, ["site", "website", "page"])) {
         responseCategory = "loveSite";
-      } else if (input.match(/bye|goodbye|see you|later|exit/i)) {
+      } 
+      else if (fuzzyMatch(input, ["bye", "goodbye", "see you", "later", "exit", "byeee", "cya"])) {
         responseCategory = "bye";
-      } else if (askingForGames || (input.includes("game") && (input.includes("about") || input.includes("play")))) {
+      } 
+      else if (fuzzyMatch(input, ["game", "games"]) && (fuzzyMatch(input, ["about", "play", "explore", "see", "show me"]) || input === "game" || input === "games")) {
         responseCategory = "games";
         responseLinks = getCategoryLinks("games");
-      } else if (askingForStudios || (input.includes("studio") && input.includes("about"))) {
+      } 
+      else if (fuzzyMatch(input, ["studio", "studios"]) && fuzzyMatch(input, ["about", "explore", "see", "show me"])) {
         responseCategory = "studios";
         responseLinks = getCategoryLinks("studios");
-      } else if (askingForLabs || (input.includes("lab") && input.includes("about"))) {
+      } 
+      else if (fuzzyMatch(input, ["lab", "labs"]) && fuzzyMatch(input, ["about", "explore", "see", "show me"])) {
         responseCategory = "labs";
         responseLinks = getCategoryLinks("labs");
-      } else if (input.includes("about") && (input.includes("company") || input.includes("re-view"))) {
-        responseCategory = "about";
-        responseLinks = getCategoryLinks("about");
-      } else if ((input.includes("help") && input.includes("navigate")) || input.includes("guide me")) {
-        responseCategory = "help";
-        responseLinks = getCategoryLinks("help");
-      } else if (askingForLogin) {
-        responseCategory = "login";
-        responseLinks = getCategoryLinks("login");
-      } else if (input.includes("game")) {
-        responseCategory = "games";
-        // Only provide links if specifically asking to see or visit
-        if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
-          responseLinks = getCategoryLinks("games");
-        }
-      } else if (input.includes("app") || input.includes("website") || input.includes("studio") || input.includes("application")) {
-        responseCategory = "studios";
-        // Only provide links if specifically asking to see or visit
-        if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
-          responseLinks = getCategoryLinks("studios");
-        }
-      } else if (input.includes("kit") || input.includes("lab") || input.includes("project") || input.includes("educational")) {
-        responseCategory = "labs";
-        // Only provide links if specifically asking to see or visit
-        if (input.includes("see") || input.includes("visit") || input.includes("go to")) {
-          responseLinks = getCategoryLinks("labs");
-        }
-      } else {
-        responseCategory = "default";
-      }
-
-      if (!responseText) {
-        responseText = getRandomResponse(responseCategory);
-      }
-
-      const botResponse: Message = {
-        id: messages.length + 2,
-        text: responseText,
-        isBot: true,
-        links: responseLinks,
-      };
-
-      setIsTyping(false);
-      setMessages((prevMessages) => [...prevMessages, botResponse]);
-    }, 1000 + Math.random() * 500);
-  };
-
-  return (
-    <>
-      {/* Chat button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-review-cyan text-review-black shadow-neon flex items-center justify-center transition-all hover:brightness-110 ${
-          isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100"
-        }`}
-        aria-label="Open chat"
-      >
-        <Bot size={24} />
-      </button>
-
-      {/* Chat window */}
-      <div
-        className={`fixed bottom-6 right-6 z-50 w-80 sm:w-96 h-[500px] max-h-[80vh] glass-card rounded-2xl overflow-hidden flex flex-col transition-all duration-300 shadow-neon ${
-          isOpen
-            ? "scale-100 opacity-100 translate-y-0"
-            : "scale-95 opacity-0 translate-y-10 pointer-events-none"
-        }`}
-      >
-        {/* Header */}
-        <div className="bg-review-gray/30 p-4 border-b border-review-cyan/20 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-full bg-review-cyan flex items-center justify-center">
-              <Bot size={16} className="text-review-black" />
-            </div>
-            <div>
-              <h3 className="font-medium text-white">Revy Bot</h3>
-              <p className="text-xs text-white/70">Online</p>
-            </div>
-          </div>
-          <button
-            onClick={() => setIsOpen(false)}
-            className="text-white/70 hover:text-white transition-colors"
-            aria-label="Close chat"
-          >
-            <X size={20} />
-          </button>
-        </div>
-
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`flex ${message.isBot ? "justify-start" : "justify-end"}`}
-            >
-              <div
-                className={`max-w-[85%] rounded-2xl p-3 ${
-                  message.isBot
-                    ? "bg-review-gray/30 text-white"
-                    : "bg-review-cyan/90 text-review-black"
-                }`}
-              >
-                <p>{message.text}</p>
-                {message.links && (
-                  <div className="mt-2 space-y-2">
-                    {message.links.map((link, index) => (
-                      <Link
-                        key={index}
-                        to={link.url}
-                        className="block w-full text-center px-3 py-2 rounded bg-white/10 hover:bg-white/20 transition-colors text-sm font-medium flex items-center justify-center gap-1"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {link.text}
-                        <ExternalLink size={14} />
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-          {isTyping && (
-            <div className="flex justify-start">
-              <div className="max-w-[85%] rounded-2xl p-3 bg-review-gray/30 text-white">
-                <p className="typing-animation">Typing</p>
-              </div>
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input */}
-        <div className="p-3 border-t border-review-cyan/20 bg-review-gray/30">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSendMessage();
-            }}
-            className="flex items-center gap-2"
-          >
-            <input
-              type="text"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              placeholder="Ask Revy anything..."
-              className="flex-1 py-2 px-3 rounded-full bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
-            />
-            <button
-              type="submit"
-              className="w-8 h-8 rounded-full bg-review-cyan text-review-black flex items-center justify-center hover:brightness-110 transition-all"
-              aria-label="Send message"
-            >
-              <Send size={16} />
-            </button>
-          </form>
-        </div>
-      </div>
-    </>
-  );
-};
-
-export default ChatBot;
+      } 
+      else if (fuzzyMatch(input, ["about"])
