@@ -633,14 +633,14 @@ const ChatBot = () => {
     <div className="fixed bottom-4 right-4 flex flex-col z-50">
       {isOpen && (
         <div className="bg-white rounded-lg shadow-lg mb-2 w-80 sm:w-96 flex flex-col h-96 max-h-[80vh] overflow-hidden">
-          <div className="bg-review-darkblue text-white p-3 flex items-center justify-between rounded-t-lg">
+          <div className="bg-review-cyan text-review-darkblue p-3 flex items-center justify-between rounded-t-lg">
             <div className="flex items-center">
-              <Bot size={20} className="mr-2" />
+              <Bot size={20} className="mr-2 text-review-darkblue" />
               <span className="font-medium">Chat with Revy 🤖</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white hover:text-gray-300"
+              className="text-review-darkblue hover:text-gray-700"
             >
               <X size={20} />
             </button>
@@ -657,7 +657,7 @@ const ChatBot = () => {
                 <div
                   className={`max-w-[80%] rounded-lg p-3 ${
                     msg.isBot
-                      ? "bg-gray-100 text-gray-800"
+                      ? "bg-review-cyan/10 text-review-darkblue"
                       : "bg-review-darkblue text-white"
                   }`}
                 >
@@ -681,11 +681,11 @@ const ChatBot = () => {
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                <div className="bg-review-cyan/10 rounded-lg p-3 max-w-[80%]">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:0.2s]"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:0.4s]"></div>
+                    <div className="w-2 h-2 rounded-full bg-review-darkblue animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-review-darkblue animate-bounce [animation-delay:0.2s]"></div>
+                    <div className="w-2 h-2 rounded-full bg-review-darkblue animate-bounce [animation-delay:0.4s]"></div>
                   </div>
                 </div>
               </div>
@@ -700,11 +700,11 @@ const ChatBot = () => {
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder="Type a message..."
-              className="flex-grow bg-gray-100 rounded-full px-4 py-2 focus:outline-none"
+              className="flex-grow bg-review-cyan/10 text-review-darkblue rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-review-cyan"
             />
             <button
               onClick={handleSendMessage}
-              className="ml-2 bg-review-darkblue text-white rounded-full p-2 hover:bg-blue-700 focus:outline-none"
+              className="ml-2 bg-review-cyan text-review-darkblue rounded-full p-2 hover:bg-review-cyan/80 transition-colors focus:outline-none"
             >
               <Send size={18} />
             </button>
@@ -717,7 +717,7 @@ const ChatBot = () => {
                 <button
                   key={index}
                   onClick={() => handleQuickAction(action.url, action.text)}
-                  className="bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs rounded-full px-3 py-1 transition-colors"
+                  className="bg-review-cyan/10 hover:bg-review-cyan/20 text-review-darkblue text-xs rounded-full px-3 py-1 transition-colors"
                 >
                   {action.text}
                 </button>
@@ -730,7 +730,7 @@ const ChatBot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-review-darkblue text-white rounded-full p-3 shadow-lg hover:bg-blue-700 transition-colors focus:outline-none"
+          className="bg-review-cyan text-review-darkblue rounded-full p-3 shadow-lg hover:bg-review-cyan/80 transition-colors focus:outline-none"
           aria-label="Open chat"
         >
           <MessageSquare size={24} />
