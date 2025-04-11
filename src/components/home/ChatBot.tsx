@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from "react";
 import { MessageSquare, Send, X, ExternalLink, Bot } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -639,4 +640,133 @@ const ChatBot = () => {
         responseCategory = "labs";
         responseLinks = getCategoryLinks("labs");
       } 
-      else if (fuzzyMatch(input, ["about"])
+      else if (fuzzyMatch(input, ["about"])) {
+        responseCategory = "about";
+        responseLinks = getCategoryLinks("about");
+      }
+      else if (fuzzyMatch(input, ["help", "support", "assist"])) {
+        responseCategory = "help";
+        responseLinks = getCategoryLinks("help");
+      }
+      else if (fuzzyMatch(input, ["log in", "login", "sign in", "signin", "register", "account"])) {
+        responseCategory = "login";
+        responseLinks = getCategoryLinks("login");
+      }
+
+      responseText = getRandomResponse(responseCategory);
+
+      const botMessage = {
+        id: messages.length + 2,
+        text: responseText,
+        isBot: true,
+        links: responseLinks,
+      };
+
+      setIsTyping(false);
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+    }, 1500);
+  };
+
+  return (
+    <div className="fixed bottom-4 right-4 flex flex-col z-50">
+      {isOpen && (
+        <div className="bg-white rounded-lg shadow-lg mb-2 w-80 sm:w-96 flex flex-col h-96 max-h-[80vh] overflow-hidden">
+          <div className="bg-review-darkblue text-white p-3 flex items-center justify-between rounded-t-lg">
+            <div className="flex items-center">
+              <Bot size={20} className="mr-2" />
+              <span className="font-medium">Chat with Revy</span>
+            </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-white hover:text-gray-300"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <div className="flex-grow overflow-y-auto p-3 space-y-3">
+            {messages.map((msg) => (
+              <div
+                key={msg.id}
+                className={`flex ${
+                  msg.isBot ? "justify-start" : "justify-end"
+                }`}
+              >
+                <div
+                  className={`max-w-[80%] rounded-lg p-3 ${
+                    msg.isBot
+                      ? "bg-gray-100 text-gray-800"
+                      : "bg-review-darkblue text-white"
+                  }`}
+                >
+                  <div>{msg.text}</div>
+                  {msg.links && (
+                    <div className="mt-2 space-y-1">
+                      {msg.links.map((link, i) => (
+                        <Link
+                          key={i}
+                          to={link.url}
+                          className="flex items-center text-review-blue hover:underline"
+                        >
+                          <ExternalLink size={12} className="mr-1" />
+                          {link.text}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+            {isTyping && (
+              <div className="flex justify-start">
+                <div className="bg-gray-100 rounded-lg p-3 max-w-[80%]">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:0.2s]"></div>
+                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce [animation-delay:0.4s]"></div>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef}></div>
+          </div>
+
+          <div className="border-t p-3">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSendMessage();
+              }}
+              className="flex items-center"
+            >
+              <input
+                type="text"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                className="flex-grow border rounded-l-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-review-blue"
+                placeholder="Type a message..."
+              />
+              <button
+                type="submit"
+                className="bg-review-darkblue text-white rounded-r-lg px-3 py-2 hover:bg-review-blue transition-colors"
+              >
+                <Send size={20} />
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {!isOpen && (
+        <button
+          onClick={() => setIsOpen(true)}
+          className="bg-review-darkblue text-white rounded-full p-3 shadow-lg hover:bg-review-blue transition-colors"
+        >
+          <MessageSquare size={24} />
+        </button>
+      )}
+    </div>
+  );
+};
+
+export default ChatBot;
