@@ -1,5 +1,5 @@
-
 import { useEffect } from "react";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
@@ -7,12 +7,32 @@ import { Laptop, Smartphone, Code } from "lucide-react";
 
 const Studios = () => {
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
-    
-    // Set page title
     document.title = "View-Studios | Professional Web Applications";
   }, []);
+
+  const socialMediaLinks = [
+    { 
+      icon: Facebook, 
+      link: "https://facebook.com/re-view", 
+      name: "Facebook" 
+    },
+    { 
+      icon: Instagram, 
+      link: "https://instagram.com/re-view", 
+      name: "Instagram" 
+    },
+    { 
+      icon: Linkedin, 
+      link: "https://linkedin.com/company/re-view", 
+      name: "LinkedIn" 
+    },
+    { 
+      icon: Twitter, 
+      link: "https://twitter.com/re-view", 
+      name: "Twitter" 
+    }
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-review-darkblue">
@@ -116,36 +136,29 @@ const Studios = () => {
               </div>
             </div>
             
-            {/* Contact Form */}
+            {/* Social Media Contact Section */}
             <div className="mt-16 glass-card rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6">Contact Us</h2>
+              <h2 className="text-2xl font-bold text-review-cyan mb-6 text-center">
+                Connect with View-Studios
+              </h2>
               
-              <form className="max-w-2xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label className="block text-gray-300 mb-2">Name</label>
-                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200" />
-                  </div>
-                  <div>
-                    <label className="block text-gray-300 mb-2">Email</label>
-                    <input type="email" className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200" />
-                  </div>
-                </div>
-                
-                <div className="mb-6">
-                  <label className="block text-gray-300 mb-2">Subject</label>
-                  <input type="text" className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200" />
-                </div>
-                
-                <div className="mb-6">
-                  <label className="block text-gray-300 mb-2">Message</label>
-                  <textarea rows={4} className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200"></textarea>
-                </div>
-                
-                <div className="text-center">
-                  <button type="submit" className="btn-primary">Send Message</button>
-                </div>
-              </form>
+              <div className="flex justify-center space-x-6">
+                {socialMediaLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-review-cyan hover:text-review-cyan/80 transition-colors"
+                    aria-label={`${social.name} link`}
+                  >
+                    <social.icon size={32} />
+                  </a>
+                ))}
+              </div>
+              <p className="text-center text-white/70 mt-4">
+                Reach out to us on any of these platforms for inquiries or collaborations.
+              </p>
             </div>
           </div>
         </section>

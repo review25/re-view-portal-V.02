@@ -1,5 +1,5 @@
-
 import { useEffect } from "react";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
@@ -7,12 +7,32 @@ import { Lightbulb, Cpu, FlaskConical } from "lucide-react";
 
 const Labs = () => {
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
-    
-    // Set page title
     document.title = "N-8 Labs | Educational Project Kits";
   }, []);
+
+  const socialMediaLinks = [
+    { 
+      icon: Facebook, 
+      link: "https://facebook.com/n8labs", 
+      name: "Facebook" 
+    },
+    { 
+      icon: Instagram, 
+      link: "https://instagram.com/n8labs", 
+      name: "Instagram" 
+    },
+    { 
+      icon: Linkedin, 
+      link: "https://linkedin.com/company/n8labs", 
+      name: "LinkedIn" 
+    },
+    { 
+      icon: Twitter, 
+      link: "https://twitter.com/n8labs", 
+      name: "Twitter" 
+    }
+  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-review-darkblue">
@@ -167,52 +187,29 @@ const Labs = () => {
               </div>
             </div>
             
-            {/* Order Form */}
+            {/* Social Media Contact Section */}
             <div className="mt-16 glass-card rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6 text-center">Request Project Kit Information</h2>
+              <h2 className="text-2xl font-bold text-review-cyan mb-6 text-center">
+                Connect with N-8 Labs
+              </h2>
               
-              <form className="max-w-2xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label className="block text-gray-300 mb-2">Full Name</label>
-                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200" />
-                  </div>
-                  <div>
-                    <label className="block text-gray-300 mb-2">Email</label>
-                    <input type="email" className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200" />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <label className="block text-gray-300 mb-2">College/University</label>
-                    <input type="text" className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200" />
-                  </div>
-                  <div>
-                    <label className="block text-gray-300 mb-2">Project Type</label>
-                    <select className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200">
-                      <option value="">Select a project type</option>
-                      <option value="mini">Mini Project</option>
-                      <option value="major">Major Project</option>
-                      <option value="research">Research Project</option>
-                    </select>
-                  </div>
-                </div>
-                
-                <div className="mb-6">
-                  <label className="block text-gray-300 mb-2">Project Area of Interest</label>
-                  <input type="text" className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200" placeholder="e.g., IoT, Machine Learning, Robotics" />
-                </div>
-                
-                <div className="mb-6">
-                  <label className="block text-gray-300 mb-2">Additional Requirements</label>
-                  <textarea rows={4} className="w-full bg-review-black/50 border border-review-cyan/20 rounded px-4 py-2 text-gray-200"></textarea>
-                </div>
-                
-                <div className="text-center">
-                  <button type="submit" className="btn-primary">Submit Request</button>
-                </div>
-              </form>
+              <div className="flex justify-center space-x-6">
+                {socialMediaLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-review-cyan hover:text-review-cyan/80 transition-colors"
+                    aria-label={`${social.name} link`}
+                  >
+                    <social.icon size={32} />
+                  </a>
+                ))}
+              </div>
+              <p className="text-center text-white/70 mt-4">
+                Connect with us to learn more about our project kits and educational technologies.
+              </p>
             </div>
           </div>
         </section>
