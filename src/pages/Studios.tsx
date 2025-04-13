@@ -1,12 +1,17 @@
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
-import { Laptop, Smartphone, Code, Building, BarChart, FileCheck, Landmark, Shield } from "lucide-react";
+import { Laptop, Smartphone, Code, Building, BarChart, FileCheck, Landmark, Shield, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import AnimatedCard from "@/components/shared/AnimatedCard";
+import { Button } from "@/components/ui/button";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const Studios = () => {
+  const [isJagruthiOpen, setIsJagruthiOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "View-Studios | Professional Web Applications";
@@ -92,12 +97,54 @@ const Studios = () => {
                     <p className="text-gray-300 mb-4">
                       Smart Citizen Issue Management System for reporting, tracking, and resolving civic issues with real-time updates and analytics.
                     </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="text-xs bg-[#004d00]/20 text-[#00b300] px-2 py-1 rounded">React</span>
-                      <span className="text-xs bg-[#004d00]/20 text-[#00b300] px-2 py-1 rounded">Netlify</span>
-                      <span className="text-xs bg-[#004d00]/20 text-[#00b300] px-2 py-1 rounded">Serverless</span>
-                    </div>
-                    <a href="#" className="text-[#00b300] hover:text-[#007d00] transition-colors">View Project →</a>
+                    
+                    <Collapsible open={isJagruthiOpen} onOpenChange={setIsJagruthiOpen} className="w-full">
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="text-xs bg-[#004d00]/20 text-[#00b300] px-2 py-1 rounded">React</span>
+                        <span className="text-xs bg-[#004d00]/20 text-[#00b300] px-2 py-1 rounded">Netlify</span>
+                        <span className="text-xs bg-[#004d00]/20 text-[#00b300] px-2 py-1 rounded">Serverless</span>
+                      </div>
+                      
+                      <CollapsibleTrigger asChild>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-[#00b300] hover:text-[#007d00] hover:bg-[#004d00]/10 transition-colors flex items-center gap-1 p-0"
+                        >
+                          {isJagruthiOpen ? (
+                            <>
+                              Show Less <ChevronUp className="h-4 w-4" />
+                            </>
+                          ) : (
+                            <>
+                              Know More <ChevronDown className="h-4 w-4" />
+                            </>
+                          )}
+                        </Button>
+                      </CollapsibleTrigger>
+                      
+                      <CollapsibleContent className="mt-4 space-y-4">
+                        <div className="text-gray-300 text-sm">
+                          <p className="mb-3">
+                            JAGRUTHI is a state-of-the-art web-based platform developed to streamline the reporting, tracking, 
+                            and resolution of civic issues. Designed with user-centric principles, the system provides citizens 
+                            with an intuitive interface to report problems in their community.
+                          </p>
+                          <p className="mb-3">
+                            The platform delivers real-time updates on the status of reported issues, fostering transparency 
+                            and enhancing communication between citizens and authorities.
+                          </p>
+                          <div className="mt-6">
+                            <Button 
+                              className="bg-[#00b300] hover:bg-[#009900] text-white flex items-center gap-2"
+                              onClick={() => window.open("https://jagruthi.reviewrv25.com", "_blank")}
+                            >
+                              Visit Website <ExternalLink className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
                   </div>
                 </AnimatedCard>
                 
