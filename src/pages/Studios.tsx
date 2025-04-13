@@ -12,6 +12,59 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 const Studios = () => {
   const [isJagruthiOpen, setIsJagruthiOpen] = useState(false);
 
+  // Coming soon projects data
+  const comingSoonProjects = [
+    { 
+      id: 1, 
+      title: "Smart City Dashboard", 
+      description: "Centralized monitoring and analytics platform for urban infrastructure and services.",
+      tags: ["React", "D3.js", "Node.js"],
+      icon: <Building className="w-16 h-16 text-review-cyan" />
+    },
+    { 
+      id: 2, 
+      title: "EcoTrack", 
+      description: "Environmental monitoring application for collecting and visualizing ecological data.",
+      tags: ["React Native", "Firebase", "Maps API"],
+      icon: <Shield className="w-16 h-16 text-review-cyan" />
+    },
+    { 
+      id: 3, 
+      title: "FinViz", 
+      description: "Financial data visualization platform with predictive analytics capabilities.",
+      tags: ["Vue.js", "TypeScript", "Express"],
+      icon: <BarChart className="w-16 h-16 text-review-cyan" />
+    },
+    { 
+      id: 4, 
+      title: "DocuFlow", 
+      description: "Document management system with automated workflow and approval processes.",
+      tags: ["Angular", "MongoDB", "AWS"],
+      icon: <FileCheck className="w-16 h-16 text-review-cyan" />
+    },
+    { 
+      id: 5, 
+      title: "HealthSync", 
+      description: "Healthcare information exchange platform for medical facilities.",
+      tags: ["Next.js", "GraphQL", "PostgreSQL"],
+      icon: <Landmark className="w-16 h-16 text-review-cyan" />
+    },
+    { 
+      id: 6, 
+      title: "GovPortal", 
+      description: "Citizen services portal for government agencies with secure authentication.",
+      tags: ["React", "Redux", "Java Spring"],
+      icon: <Building className="w-16 h-16 text-review-cyan" />
+    },
+    { 
+      id: 7, 
+      title: "SmartHome", 
+      description: "IoT platform for connected home devices with energy optimization algorithms.",
+      tags: ["React", "Node.js", "MQTT"],
+      icon: <Smartphone className="w-16 h-16 text-review-cyan" />
+    }
+  ];
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "View-Studios | Professional Web Applications";
@@ -82,8 +135,8 @@ const Studios = () => {
             <div>
               <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Projects</h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                {/* JAGRUTHI Project - New Project */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                {/* JAGRUTHI Project */}
                 <AnimatedCard delay={100} className="glass-card rounded-xl overflow-hidden">
                   <div className="h-48 bg-[#F2FCE2]/20 flex items-center justify-center">
                     <img 
@@ -95,7 +148,7 @@ const Studios = () => {
                   <div className="p-6">
                     <h3 className="text-review-cyan font-semibold text-xl mb-2">JAGRUTHI (PROTOTYPE)</h3>
                     <p className="text-gray-300 mb-4">
-                      Smart Citizen Issue Management System for reporting, tracking, and resolving civic issues with real-time updates and analytics.
+                      Smart Citizen Issue Management System for reporting, tracking, and resolving civic issues.
                     </p>
                     
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -112,6 +165,7 @@ const Studios = () => {
                               variant="ghost" 
                               size="sm" 
                               className="text-[#00b300] hover:text-[#007d00] hover:bg-[#004d00]/10 transition-colors flex items-center gap-1 p-0"
+                              onClick={() => setIsJagruthiOpen(!isJagruthiOpen)}
                             >
                               {isJagruthiOpen ? (
                                 <>
@@ -152,22 +206,30 @@ const Studios = () => {
                   </div>
                 </AnimatedCard>
                 
-                {/* Project 1 */}
-                <AnimatedCard delay={200} className="glass-card rounded-xl overflow-hidden">
-                  <div className="h-48 bg-review-black/30 flex items-center justify-center">
-                    <Code className="w-16 h-16 text-review-cyan" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-review-cyan font-semibold text-xl mb-2">Project Name 1</h3>
-                    <p className="text-gray-300 mb-4">Project description goes here. Replace this text with your project details.</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">React</span>
-                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">AI</span>
-                      <span className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">Node.js</span>
+                {/* Coming Soon Projects */}
+                {comingSoonProjects.map((project, index) => (
+                  <AnimatedCard 
+                    key={project.id} 
+                    delay={(index + 1) * 100} 
+                    className="glass-card rounded-xl overflow-hidden"
+                  >
+                    <div className="h-48 bg-review-black/30 flex items-center justify-center">
+                      {project.icon}
                     </div>
-                    <a href="#" className="text-review-cyan hover:text-review-cyan/80 transition-colors">View Project →</a>
-                  </div>
-                </AnimatedCard>
+                    <div className="p-6">
+                      <h3 className="text-review-cyan font-semibold text-xl mb-2">{project.title}</h3>
+                      <p className="text-gray-300 mb-4">{project.description}</p>
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.tags.map((tag, i) => (
+                          <span key={i} className="text-xs bg-review-cyan/10 text-review-cyan px-2 py-1 rounded">{tag}</span>
+                        ))}
+                      </div>
+                      <div className="bg-review-cyan/20 text-review-cyan py-1 px-3 rounded text-sm inline-block">
+                        Coming Soon
+                      </div>
+                    </div>
+                  </AnimatedCard>
+                ))}
               </div>
             </div>
           </div>
