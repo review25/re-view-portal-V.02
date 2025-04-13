@@ -1,9 +1,8 @@
-
 import { useEffect } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
-import { Laptop, Smartphone, Code, Building, BarChart, FileCheck, City, Shield } from "lucide-react";
+import { Laptop, Smartphone, Code, Building, BarChart, FileCheck, Landmark, Shield } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import AnimatedCard from "@/components/shared/AnimatedCard";
 
@@ -200,7 +199,7 @@ const Studios = () => {
                       <h4 className="font-medium text-review-cyan">Smart Urban Management</h4>
                     </div>
                     <div className="flex flex-col items-center p-4 bg-[#004d00]/10 rounded-lg">
-                      <City className="h-8 w-8 text-[#00b300] mb-2" />
+                      <Landmark className="h-8 w-8 text-[#00b300] mb-2" />
                       <h4 className="font-medium text-review-cyan">Community Engagement</h4>
                     </div>
                     <div className="flex flex-col items-center p-4 bg-[#004d00]/10 rounded-lg">
