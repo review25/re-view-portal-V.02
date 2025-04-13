@@ -1,9 +1,11 @@
 
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ChevronLeft } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import { AuthContext } from "../contexts/AuthContext";
+import { toast } from "sonner";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,6 +13,8 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+  const navigate = useNavigate();
+  const { login, isLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     // Scroll to top when component mounts
@@ -18,20 +22,30 @@ const Login = () => {
     
     // Set page title
     document.title = isLogin ? "Login | Re-View" : "Register | Re-View";
-  }, [isLogin]);
+    
+    // Redirect if already logged in
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLogin, isLoggedIn, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isUser) {
       if (!otpSent) {
         setOtpSent(true);
+        toast.success("OTP sent to your email and phone");
       } else if (!otpVerified) {
         setOtpVerified(true);
-        // Here we would redirect to dashboard in a real implementation
+        login(); // Set the user as logged in
+        toast.success("Login successful!");
+        navigate('/'); // Redirect to home page
       }
     } else {
-      // Handle employee login (would connect to backend)
-      console.log("Employee login attempted");
+      // Handle employee login
+      login(); // For demo purposes, login immediately
+      toast.success("Employee login successful!");
+      navigate('/');
     }
   };
 
@@ -42,7 +56,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-review-black">
+    <div className="min-h-screen flex flex-col bg-review-darkblue">
       <Navbar />
       <main className="flex-grow flex items-center justify-center py-20">
         <div className="w-full max-w-md px-4">
@@ -191,7 +205,7 @@ const Login = () => {
 
                   <button
                     type="submit"
-                    className="w-full py-2 px-4 bg-review-cyan hover:bg-review-cyan/90 text-review-black font-medium rounded-lg shadow-neon transition-all"
+                    className="w-full py-2 px-4 bg-review-cyan hover:bg-review-cyan/90 text-review-darkblue font-medium rounded-lg shadow-neon transition-all"
                   >
                     {otpSent ? (otpVerified ? "Success!" : "Verify OTP") : (isLogin ? "Get OTP" : "Register")}
                   </button>
@@ -239,7 +253,7 @@ const Login = () => {
                   
                   <button
                     type="submit"
-                    className="w-full py-2 px-4 bg-review-cyan hover:bg-review-cyan/90 text-review-black font-medium rounded-lg shadow-neon transition-all"
+                    className="w-full py-2 px-4 bg-review-cyan hover:bg-review-cyan/90 text-review-darkblue font-medium rounded-lg shadow-neon transition-all"
                   >
                     Login
                   </button>

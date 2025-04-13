@@ -1,5 +1,5 @@
+
 import { useEffect } from "react";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
@@ -10,29 +10,6 @@ const Studios = () => {
     window.scrollTo(0, 0);
     document.title = "View-Studios | Professional Web Applications";
   }, []);
-
-  const socialMediaLinks = [
-    { 
-      icon: Facebook, 
-      link: "https://facebook.com/re-view", 
-      name: "Facebook" 
-    },
-    { 
-      icon: Instagram, 
-      link: "https://instagram.com/re-view", 
-      name: "Instagram" 
-    },
-    { 
-      icon: Linkedin, 
-      link: "https://linkedin.com/company/re-view", 
-      name: "LinkedIn" 
-    },
-    { 
-      icon: Twitter, 
-      link: "https://twitter.com/re-view", 
-      name: "Twitter" 
-    }
-  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-review-darkblue">
@@ -134,31 +111,6 @@ const Studios = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Social Media Contact Section */}
-            <div className="mt-16 glass-card rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6 text-center">
-                Connect with View-Studios
-              </h2>
-              
-              <div className="flex justify-center space-x-6">
-                {socialMediaLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-review-cyan hover:text-review-cyan/80 transition-colors"
-                    aria-label={`${social.name} link`}
-                  >
-                    <social.icon size={32} />
-                  </a>
-                ))}
-              </div>
-              <p className="text-center text-white/70 mt-4">
-                Reach out to us on any of these platforms for inquiries or collaborations.
-              </p>
             </div>
           </div>
         </section>

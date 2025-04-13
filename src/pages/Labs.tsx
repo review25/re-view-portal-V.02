@@ -1,5 +1,5 @@
+
 import { useEffect } from "react";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
@@ -10,29 +10,6 @@ const Labs = () => {
     window.scrollTo(0, 0);
     document.title = "N-8 Labs | Educational Project Kits";
   }, []);
-
-  const socialMediaLinks = [
-    { 
-      icon: Facebook, 
-      link: "https://facebook.com/n8labs", 
-      name: "Facebook" 
-    },
-    { 
-      icon: Instagram, 
-      link: "https://instagram.com/n8labs", 
-      name: "Instagram" 
-    },
-    { 
-      icon: Linkedin, 
-      link: "https://linkedin.com/company/n8labs", 
-      name: "LinkedIn" 
-    },
-    { 
-      icon: Twitter, 
-      link: "https://twitter.com/n8labs", 
-      name: "Twitter" 
-    }
-  ];
 
   return (
     <div className="min-h-screen flex flex-col bg-review-darkblue">
@@ -185,31 +162,6 @@ const Labs = () => {
                   </div>
                 </div>
               </div>
-            </div>
-            
-            {/* Social Media Contact Section */}
-            <div className="mt-16 glass-card rounded-xl p-8">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6 text-center">
-                Connect with N-8 Labs
-              </h2>
-              
-              <div className="flex justify-center space-x-6">
-                {socialMediaLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-review-cyan hover:text-review-cyan/80 transition-colors"
-                    aria-label={`${social.name} link`}
-                  >
-                    <social.icon size={32} />
-                  </a>
-                ))}
-              </div>
-              <p className="text-center text-white/70 mt-4">
-                Connect with us to learn more about our project kits and educational technologies.
-              </p>
             </div>
           </div>
         </section>

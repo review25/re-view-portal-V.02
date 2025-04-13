@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from "react";
-import { MessageSquare, Send, X, ExternalLink, Bot } from "lucide-react";
+import { MessageSquare, Send, X, ExternalLink, Bot, Sparkles, User } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface Message {
@@ -354,6 +354,36 @@ const ChatBot = () => {
       "Logging in gives you access to your purchase history and lets you save your progress in games!",
       "Create an account to join our community and access exclusive content and early releases!",
     ],
+    pricing: [
+      "Our games range from free to premium. Most basic games are free, while premium titles start at just ₹99!",
+      "We have a variety of pricing options! Some games are completely free, others have a small cost for premium features.",
+      "Many games are free to play with optional in-app purchases. Our premium games typically range from ₹99 to ₹499."
+    ],
+    security: [
+      "We take security very seriously! All user data is encrypted and we follow industry best practices.",
+      "Your data security is our priority. We use advanced encryption and never share your information with third parties.",
+      "Rest assured, we implement all the latest security protocols to keep your information safe and private."
+    ],
+    contactSupport: [
+      "Need help? Reach out through our social media channels for the fastest response!",
+      "Our support team is available via our social media handles. They typically respond within 24 hours!",
+      "For any issues or questions, please contact us through our social media accounts. We're always happy to help!"
+    ],
+    techSupport: [
+      "Having technical issues? Let me know what's happening and I'll try to help you troubleshoot!",
+      "Technical problems can be frustrating! Describe what's happening and I'll do my best to help solve it.",
+      "Tech support is available! Tell me what's not working correctly, and I'll guide you through possible solutions."
+    ],
+    promotions: [
+      "Keep an eye on our social media for special promotions and discounts! We run seasonal sales frequently.",
+      "We offer special discounts for students and first-time customers! Check our social media for promo codes.",
+      "Follow our social media accounts to catch our flash sales and limited-time offers on games and kits!"
+    ],
+    accessibility: [
+      "We design all our games and applications with accessibility in mind! We want everyone to enjoy our products.",
+      "Accessibility is important to us! Our apps include features like screen reader support and customizable text sizes.",
+      "We're committed to making our products accessible to everyone. If you have specific needs, let us know!"
+    ],
     default: [
       "I'm still learning! Could you rephrase that or ask something else?",
       "Hmm, not sure I caught that. Want to try asking differently?",
@@ -564,6 +594,30 @@ const ChatBot = () => {
         responseLinks = getCategoryLinks("login");
         recognized = true;
       }
+      else if (fuzzyMatch(input, ["price", "pricing", "cost", "how much", "subscription", "fee"])) {
+        responseCategory = "pricing";
+        recognized = true;
+      }
+      else if (fuzzyMatch(input, ["security", "secure", "privacy", "data", "protection", "safe"])) {
+        responseCategory = "security";
+        recognized = true;
+      }
+      else if (fuzzyMatch(input, ["contact", "support", "help desk", "reach out", "assistance"])) {
+        responseCategory = "contactSupport";
+        recognized = true;
+      }
+      else if (fuzzyMatch(input, ["technical", "tech support", "bug", "issue", "not working", "problem", "glitch"])) {
+        responseCategory = "techSupport";
+        recognized = true;
+      }
+      else if (fuzzyMatch(input, ["discount", "offer", "sale", "promo", "promotion", "deal"])) {
+        responseCategory = "promotions";
+        recognized = true;
+      }
+      else if (fuzzyMatch(input, ["accessible", "accessibility", "disability", "impaired", "special needs"])) {
+        responseCategory = "accessibility";
+        recognized = true;
+      }
 
       // If we couldn't recognize the intent, use fallback response
       if (!recognized) {
@@ -632,21 +686,21 @@ const ChatBot = () => {
   return (
     <div className="fixed bottom-4 right-4 flex flex-col z-50">
       {isOpen && (
-        <div className="bg-white rounded-lg shadow-lg mb-2 w-80 sm:w-96 flex flex-col h-96 max-h-[80vh] overflow-hidden">
+        <div className="bg-review-darkblue rounded-lg shadow-lg mb-2 w-80 sm:w-96 flex flex-col h-96 max-h-[80vh] overflow-hidden border border-review-cyan/30">
           <div className="bg-review-cyan text-review-darkblue p-3 flex items-center justify-between rounded-t-lg">
             <div className="flex items-center">
-              <Bot size={20} className="mr-2 text-review-darkblue" />
-              <span className="font-medium">Chat with Revy 🤖</span>
+              <Sparkles size={20} className="mr-2 text-review-darkblue animate-pulse" />
+              <span className="font-medium">Chat with Revy AI</span>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-review-darkblue hover:text-gray-700"
+              className="text-review-darkblue hover:text-gray-700 transition-colors"
             >
               <X size={20} />
             </button>
           </div>
 
-          <div className="flex-grow overflow-y-auto p-3 space-y-3">
+          <div className="flex-grow overflow-y-auto p-3 space-y-3 bg-gradient-to-b from-review-darkblue/90 to-review-black">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -655,37 +709,53 @@ const ChatBot = () => {
                 }`}
               >
                 <div
-                  className={`max-w-[80%] rounded-lg p-3 ${
-                    msg.isBot
-                      ? "bg-review-cyan/10 text-review-darkblue"
-                      : "bg-review-darkblue text-white"
+                  className={`flex items-start gap-2 max-w-[85%] ${
+                    msg.isBot ? "flex-row" : "flex-row-reverse"
                   }`}
                 >
-                  <div>{msg.text}</div>
-                  {msg.links && (
-                    <div className="mt-2 space-y-1">
-                      {msg.links.map((link, i) => (
-                        <Link
-                          key={i}
-                          to={link.url}
-                          className="flex items-center text-review-blue hover:underline"
-                        >
-                          <ExternalLink size={12} className="mr-1" />
-                          {link.text}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <div className={`rounded-full p-1.5 flex-shrink-0 ${
+                    msg.isBot ? "bg-review-cyan text-review-darkblue" : "bg-gray-700"
+                  }`}>
+                    {msg.isBot ? <Bot size={16} /> : <User size={16} />}
+                  </div>
+                  <div
+                    className={`rounded-lg p-3 ${
+                      msg.isBot
+                        ? "bg-review-cyan/10 text-review-cyan border border-review-cyan/20"
+                        : "bg-gray-700 text-white"
+                    }`}
+                  >
+                    <div className="text-sm">{msg.text}</div>
+                    {msg.links && (
+                      <div className="mt-2 space-y-1">
+                        {msg.links.map((link, i) => (
+                          <Link
+                            key={i}
+                            to={link.url}
+                            className="flex items-center text-review-cyan hover:underline text-xs"
+                          >
+                            <ExternalLink size={12} className="mr-1" />
+                            {link.text}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-review-cyan/10 rounded-lg p-3 max-w-[80%]">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 rounded-full bg-review-darkblue animate-bounce"></div>
-                    <div className="w-2 h-2 rounded-full bg-review-darkblue animate-bounce [animation-delay:0.2s]"></div>
-                    <div className="w-2 h-2 rounded-full bg-review-darkblue animate-bounce [animation-delay:0.4s]"></div>
+                <div className="flex items-start gap-2">
+                  <div className="rounded-full p-1.5 bg-review-cyan text-review-darkblue flex-shrink-0">
+                    <Bot size={16} />
+                  </div>
+                  <div className="bg-review-cyan/10 border border-review-cyan/20 rounded-lg p-3">
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 rounded-full bg-review-cyan animate-bounce"></div>
+                      <div className="w-2 h-2 rounded-full bg-review-cyan animate-bounce [animation-delay:0.2s]"></div>
+                      <div className="w-2 h-2 rounded-full bg-review-cyan animate-bounce [animation-delay:0.4s]"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -693,31 +763,33 @@ const ChatBot = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          <div className="border-t p-3 flex items-center">
-            <input
-              type="text"
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-              placeholder="Type a message..."
-              className="flex-grow bg-review-cyan/10 text-review-darkblue rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-review-cyan"
-            />
-            <button
-              onClick={handleSendMessage}
-              className="ml-2 bg-review-cyan text-review-darkblue rounded-full p-2 hover:bg-review-cyan/80 transition-colors focus:outline-none"
-            >
-              <Send size={18} />
-            </button>
+          <div className="border-t border-review-cyan/20 p-3 bg-review-black">
+            <div className="relative">
+              <input
+                type="text"
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                placeholder="Type a message..."
+                className="w-full bg-review-cyan/10 text-review-cyan rounded-full pl-4 pr-12 py-2 focus:outline-none focus:ring-2 focus:ring-review-cyan/30 border border-review-cyan/20"
+              />
+              <button
+                onClick={handleSendMessage}
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-review-cyan text-review-darkblue rounded-full p-2 hover:bg-review-cyan/80 transition-colors focus:outline-none focus:ring-2 focus:ring-review-cyan"
+              >
+                <Send size={16} />
+              </button>
+            </div>
           </div>
 
-          <div className="border-t p-3">
-            <div className="text-xs text-gray-500 mb-2">Quick Actions:</div>
+          <div className="border-t border-review-cyan/20 p-3 bg-review-black">
+            <div className="text-xs text-gray-400 mb-2">Quick Actions:</div>
             <div className="flex flex-wrap gap-2">
               {quickActions.map((action, index) => (
                 <button
                   key={index}
                   onClick={() => handleQuickAction(action.url, action.text)}
-                  className="bg-review-cyan/10 hover:bg-review-cyan/20 text-review-darkblue text-xs rounded-full px-3 py-1 transition-colors"
+                  className="bg-review-cyan/10 hover:bg-review-cyan/20 text-review-cyan text-xs rounded-full px-3 py-1 transition-colors border border-review-cyan/20"
                 >
                   {action.text}
                 </button>
@@ -730,10 +802,13 @@ const ChatBot = () => {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="bg-review-cyan text-review-darkblue rounded-full p-3 shadow-lg hover:bg-review-cyan/80 transition-colors focus:outline-none"
+          className="bg-review-cyan text-review-darkblue rounded-full p-3 shadow-lg hover:bg-review-cyan/80 transition-colors focus:outline-none focus:ring-2 focus:ring-review-cyan/50"
           aria-label="Open chat"
         >
-          <MessageSquare size={24} />
+          <div className="relative">
+            <Sparkles size={24} className="animate-pulse" />
+            <span className="absolute -top-1 -right-1 bg-red-500 rounded-full w-3 h-3"></span>
+          </div>
         </button>
       )}
     </div>
