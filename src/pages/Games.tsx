@@ -1,9 +1,8 @@
-
 import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
-import { Gamepad2, Joystick, Timer, Gamepad, Trophy, PuzzlePiece, Zap } from "lucide-react";
+import { Gamepad2, Joystick, Timer, Gamepad, Trophy, Puzzle, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -62,7 +61,7 @@ const Games = () => {
       name: "Puzzle Master",
       description: "Challenge your brain with hundreds of unique puzzles. From simple to mind-bending, there's something for everyone.",
       tags: ["Puzzle", "Casual"],
-      icon: <PuzzlePiece className="w-12 h-12" />
+      icon: <Puzzle className="w-12 h-12" />
     },
     {
       id: 4,
@@ -120,7 +119,7 @@ const Games = () => {
       name: "Word Wizards",
       description: "Put your vocabulary to the test in this word puzzle game with multiple challenging modes and daily competitions.",
       tags: ["Word", "Puzzle"],
-      icon: <PuzzlePiece className="w-12 h-12" />
+      icon: <Puzzle className="w-12 h-12" />
     },
     {
       id: 12,
@@ -177,7 +176,7 @@ const Games = () => {
       name: "Astro Golf",
       description: "Play golf across the galaxy on planets with different gravity, obstacles, and environments.",
       tags: ["Sports", "Casual"],
-      icon: <PuzzlePiece className="w-12 h-12" />
+      icon: <Puzzle className="w-12 h-12" />
     },
     {
       id: 20,
@@ -212,7 +211,7 @@ const Games = () => {
       name: "Magic Academy",
       description: "Attend a school of magic, learn spells, brew potions, and compete in magical tournaments.",
       tags: ["Fantasy", "RPG"],
-      icon: <PuzzlePiece className="w-12 h-12" />
+      icon: <Puzzle className="w-12 h-12" />
     }
   ];
 
