@@ -1,11 +1,17 @@
 
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { Eye, EyeOff, ChevronLeft } from "lucide-react";
+import { Eye, EyeOff, ChevronLeft, Loader2 } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "sonner";
+import { otpService } from "../utils/otpService";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +19,17 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  // Form data
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [otp, setOtp] = useState("");
+  const [employeeId, setEmployeeId] = useState("");
+  const [password, setPassword] = useState("");
+  
   const navigate = useNavigate();
   const { login, isLoggedIn } = useContext(AuthContext);
 
@@ -29,23 +46,72 @@ const Login = () => {
     }
   }, [isLogin, isLoggedIn, navigate]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isUser) {
-      if (!otpSent) {
-        setOtpSent(true);
-        toast.success("OTP sent to your email and phone");
-      } else if (!otpVerified) {
-        setOtpVerified(true);
-        login(); // Set the user as logged in
-        toast.success("Login successful!");
-        navigate('/'); // Redirect to home page
+    setIsLoading(true);
+
+    try {
+      if (isUser) {
+        if (!otpSent) {
+          // Validate email and phone
+          if (!email) {
+            toast.error("Please enter your email address");
+            setIsLoading(false);
+            return;
+          }
+
+          if (!phone) {
+            toast.error("Please enter your mobile number");
+            setIsLoading(false);
+            return;
+          }
+
+          // Send OTP
+          const result = await otpService.sendOTP({ email, phone });
+          
+          if (result) {
+            setOtpSent(true);
+            toast.success("OTP sent to your email and phone");
+          } else {
+            toast.error("Failed to send OTP. Please try again.");
+          }
+        } else if (!otpVerified) {
+          // Verify OTP
+          if (!otp) {
+            toast.error("Please enter the OTP");
+            setIsLoading(false);
+            return;
+          }
+
+          const result = await otpService.verifyOTP({ email, phone, otp });
+          
+          if (result) {
+            setOtpVerified(true);
+            login(); // Set the user as logged in
+            toast.success("Login successful!");
+            navigate('/'); // Redirect to home page
+          } else {
+            toast.error("Invalid OTP. Please try again.");
+          }
+        }
+      } else {
+        // Handle employee login
+        if (!employeeId || !password) {
+          toast.error("Please enter both employee ID and password");
+          setIsLoading(false);
+          return;
+        }
+        
+        // For demo purposes, login immediately
+        login(); 
+        toast.success("Employee login successful!");
+        navigate('/');
       }
-    } else {
-      // Handle employee login
-      login(); // For demo purposes, login immediately
-      toast.success("Employee login successful!");
-      navigate('/');
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -53,6 +119,25 @@ const Login = () => {
     setIsLogin(!isLogin);
     setOtpSent(false);
     setOtpVerified(false);
+    setOtp("");
+  };
+
+  const handleResendOTP = async () => {
+    setIsLoading(true);
+    try {
+      const result = await otpService.sendOTP({ email, phone });
+      
+      if (result) {
+        toast.success("OTP resent to your email and phone");
+      } else {
+        toast.error("Failed to resend OTP. Please try again.");
+      }
+    } catch (error) {
+      console.error("Resend OTP error:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -75,6 +160,7 @@ const Login = () => {
                   <button
                     onClick={() => setIsUser(true)}
                     className="flex items-center text-sm text-review-cyan hover:text-white transition-colors"
+                    disabled={isLoading}
                   >
                     <ChevronLeft size={16} />
                     Back to User
@@ -95,7 +181,9 @@ const Login = () => {
                       setIsLogin(true);
                       setOtpSent(false);
                       setOtpVerified(false);
+                      setOtp("");
                     }}
+                    disabled={isLoading}
                   >
                     Login
                   </button>
@@ -109,7 +197,9 @@ const Login = () => {
                       setIsLogin(false);
                       setOtpSent(false);
                       setOtpVerified(false);
+                      setOtp("");
                     }}
+                    disabled={isLoading}
                   >
                     Register
                   </button>
@@ -130,7 +220,10 @@ const Login = () => {
                           id="name"
                           className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
                           placeholder="Enter your full name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                           required
+                          disabled={isLoading}
                         />
                       </div>
                       
@@ -145,7 +238,10 @@ const Login = () => {
                           max="120"
                           className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
                           placeholder="Enter your age"
+                          value={age}
+                          onChange={(e) => setAge(e.target.value)}
                           required
+                          disabled={isLoading}
                         />
                       </div>
                     </>
@@ -162,7 +258,10 @@ const Login = () => {
                           id="email"
                           className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
                           placeholder="Enter your email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
                           required
+                          disabled={isLoading}
                         />
                       </div>
                       
@@ -175,87 +274,132 @@ const Login = () => {
                           id="phone"
                           className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
                           placeholder="Enter your mobile number"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
                           required
+                          disabled={isLoading}
                         />
                       </div>
                     </>
                   )}
 
                   {otpSent && !otpVerified && (
-                    <div>
-                      <div className="mb-4">
-                        <p className="text-white/70 text-sm">
-                          We've sent an OTP to your email and mobile number.
-                        </p>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="mb-4 space-y-2">
+                          <p className="text-white/70 text-sm">
+                            We've sent an OTP to:
+                          </p>
+                          {email && (
+                            <p className="text-white text-sm">
+                              Email: {otpService.getMaskedContact(email, 'email')}
+                            </p>
+                          )}
+                          {phone && (
+                            <p className="text-white text-sm">
+                              Phone: {otpService.getMaskedContact(phone, 'phone')}
+                            </p>
+                          )}
+                        </div>
+                        <label htmlFor="otp" className="block text-sm font-medium text-white/70 mb-3">
+                          Enter OTP
+                        </label>
+                        
+                        <div className="flex justify-center mb-3">
+                          <InputOTP
+                            value={otp}
+                            onChange={(value) => setOtp(value)}
+                            maxLength={6}
+                            disabled={isLoading}
+                          >
+                            <InputOTPGroup>
+                              <InputOTPSlot index={0} />
+                              <InputOTPSlot index={1} />
+                              <InputOTPSlot index={2} />
+                              <InputOTPSlot index={3} />
+                              <InputOTPSlot index={4} />
+                              <InputOTPSlot index={5} />
+                            </InputOTPGroup>
+                          </InputOTP>
+                        </div>
+                        
+                        <div className="text-center">
+                          <button 
+                            type="button"
+                            className="text-sm text-review-cyan hover:text-white transition-colors"
+                            onClick={handleResendOTP}
+                            disabled={isLoading}
+                          >
+                            Didn't receive OTP? Resend
+                          </button>
+                        </div>
                       </div>
-                      <label htmlFor="otp" className="block text-sm font-medium text-white/70 mb-1">
-                        Enter OTP
-                      </label>
-                      <input
-                        type="text"
-                        id="otp"
-                        className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
-                        placeholder="6-digit OTP"
-                        maxLength={6}
-                        pattern="[0-9]{6}"
-                        required
-                      />
                     </div>
                   )}
 
+                  {/* Employee Login Form */}
+                  {!isUser && (
+                    <>
+                      <div>
+                        <label htmlFor="employee-id" className="block text-sm font-medium text-white/70 mb-1">
+                          Employee ID
+                        </label>
+                        <input
+                          type="text"
+                          id="employee-id"
+                          className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
+                          placeholder="Enter your employee ID"
+                          value={employeeId}
+                          onChange={(e) => setEmployeeId(e.target.value)}
+                          required
+                          disabled={isLoading}
+                        />
+                      </div>
+                      
+                      <div>
+                        <label htmlFor="password" className="block text-sm font-medium text-white/70 mb-1">
+                          Password
+                        </label>
+                        <div className="relative">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            id="password"
+                            className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            disabled={isLoading}
+                          />
+                          <button
+                            type="button"
+                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white transition-colors"
+                            onClick={() => setShowPassword(!showPassword)}
+                            aria-label={showPassword ? "Hide password" : "Show password"}
+                            disabled={isLoading}
+                          >
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                          </button>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  
                   <button
                     type="submit"
-                    className="w-full py-2 px-4 bg-review-cyan hover:bg-review-cyan/90 text-review-darkblue font-medium rounded-lg shadow-neon transition-all"
+                    className="w-full py-2 px-4 bg-review-cyan hover:bg-review-cyan/90 text-review-darkblue font-medium rounded-lg shadow-neon transition-all flex justify-center items-center"
+                    disabled={isLoading}
                   >
-                    {otpSent ? (otpVerified ? "Success!" : "Verify OTP") : (isLogin ? "Get OTP" : "Register")}
-                  </button>
-                </form>
-              )}
-
-              {/* Employee Login Form */}
-              {!isUser && (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label htmlFor="employee-id" className="block text-sm font-medium text-white/70 mb-1">
-                      Employee ID
-                    </label>
-                    <input
-                      type="text"
-                      id="employee-id"
-                      className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
-                      placeholder="Enter your employee ID"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="password" className="block text-sm font-medium text-white/70 mb-1">
-                      Password
-                    </label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        id="password"
-                        className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white focus:outline-none focus:ring-1 focus:ring-review-cyan/50"
-                        placeholder="Enter your password"
-                        required
-                      />
-                      <button
-                        type="button"
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white transition-colors"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label={showPassword ? "Hide password" : "Show password"}
-                      >
-                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <button
-                    type="submit"
-                    className="w-full py-2 px-4 bg-review-cyan hover:bg-review-cyan/90 text-review-darkblue font-medium rounded-lg shadow-neon transition-all"
-                  >
-                    Login
+                    {isLoading ? (
+                      <>
+                        <Loader2 size={18} className="animate-spin mr-2" />
+                        {otpSent ? (otpVerified ? "Success!" : "Verifying...") : (isLogin ? "Sending OTP..." : "Registering...")}
+                      </>
+                    ) : (
+                      <>
+                        {otpSent ? (otpVerified ? "Success!" : "Verify OTP") : (isLogin ? "Get OTP" : "Register")}
+                      </>
+                    )}
                   </button>
                 </form>
               )}
@@ -266,6 +410,7 @@ const Login = () => {
                   <button
                     onClick={() => setIsUser(false)}
                     className="text-review-cyan hover:text-white transition-colors text-sm"
+                    disabled={isLoading}
                   >
                     Employee Login
                   </button>
@@ -273,6 +418,7 @@ const Login = () => {
                   <button
                     onClick={() => setIsUser(true)}
                     className="text-review-cyan hover:text-white transition-colors text-sm"
+                    disabled={isLoading}
                   >
                     User Login
                   </button>
