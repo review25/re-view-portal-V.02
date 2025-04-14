@@ -52,13 +52,6 @@ const GameCard = ({
 
         <div className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-2">
-            <Button 
-              className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-              onClick={() => onPlayNow(title)}
-            >
-              Play Now
-            </Button>
-            
             {webUrl && (
               <Button
                 className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
@@ -99,7 +92,7 @@ const GameCard = ({
             "space-y-4 overflow-hidden transition-all duration-300",
             isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
           )}>
-            <p className="text-gray-300 text-sm">{fullDescription}</p>
+            <p className="text-gray-300 text-sm whitespace-pre-wrap">{fullDescription}</p>
             
             {image && (
               <img
