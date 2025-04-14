@@ -65,6 +65,20 @@ const Login = () => {
             setIsLoading(false);
             return;
           }
+          
+          // For registration, validate name and age
+          if (!isLogin) {
+            if (!name) {
+              toast.error("Please enter your name");
+              setIsLoading(false);
+              return;
+            }
+            if (!age) {
+              toast.error("Please enter your age");
+              setIsLoading(false);
+              return;
+            }
+          }
 
           // Send OTP
           const result = await otpService.sendOTP({ email, phone });
@@ -87,8 +101,17 @@ const Login = () => {
           
           if (result) {
             setOtpVerified(true);
-            login(); // Set the user as logged in
-            toast.success("Login successful!");
+            
+            // Create user data object based on form inputs
+            const userData = {
+              email,
+              phone,
+              name: name || undefined, // Only include if provided (for registration)
+              isEmployee: false
+            };
+            
+            login(userData); // Set the user as logged in with user data
+            toast.success(isLogin ? "Login successful!" : "Registration successful!");
             navigate('/'); // Redirect to home page
           } else {
             toast.error("Invalid OTP. Please try again.");
@@ -102,8 +125,14 @@ const Login = () => {
           return;
         }
         
-        // For demo purposes, login immediately
-        login(); 
+        // For demo purposes, login with employee data
+        const userData = {
+          email: employeeId + "@review.com",
+          name: "Employee " + employeeId,
+          isEmployee: true
+        };
+        
+        login(userData); 
         toast.success("Employee login successful!");
         navigate('/');
       }
