@@ -7,6 +7,8 @@ import { toast } from "sonner";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import AnimatedCard from "@/components/shared/AnimatedCard";
 import GameCard from "@/components/games/GameCard";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 
 const Games = () => {
   const [currentPage, setCurrentPage] = useState(1);
