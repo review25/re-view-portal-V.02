@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ChevronLeft, Loader2 } from "lucide-react";
@@ -85,7 +84,8 @@ const Login = () => {
           
           if (result) {
             setOtpSent(true);
-            toast.success("OTP sent to your email and phone");
+            toast.success("OTP sent successfully! Check console for demo OTP");
+            toast.info("For testing, you can use 123456 as OTP");
           } else {
             toast.error("Failed to send OTP. Please try again.");
           }
@@ -93,6 +93,12 @@ const Login = () => {
           // Verify OTP
           if (!otp) {
             toast.error("Please enter the OTP");
+            setIsLoading(false);
+            return;
+          }
+          
+          if (otp.length !== 6) {
+            toast.error("OTP must be 6 digits");
             setIsLoading(false);
             return;
           }
@@ -106,7 +112,7 @@ const Login = () => {
             const userData = {
               email,
               phone,
-              name: name || undefined, // Only include if provided (for registration)
+              name: name || email.split('@')[0] || "User", // Use email prefix if name not provided
               isEmployee: false
             };
             
@@ -126,11 +132,15 @@ const Login = () => {
         }
         
         // For demo purposes, login with employee data
+        // In production, this would be authenticated against a backend
         const userData = {
           email: employeeId + "@review.com",
           name: "Employee " + employeeId,
           isEmployee: true
         };
+        
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
         
         login(userData); 
         toast.success("Employee login successful!");
@@ -157,7 +167,8 @@ const Login = () => {
       const result = await otpService.sendOTP({ email, phone });
       
       if (result) {
-        toast.success("OTP resent to your email and phone");
+        toast.success("OTP resent! Check console for demo OTP");
+        toast.info("For testing, you can use 123456 as OTP");
       } else {
         toast.error("Failed to resend OTP. Please try again.");
       }
@@ -329,6 +340,9 @@ const Login = () => {
                               Phone: {otpService.getMaskedContact(phone, 'phone')}
                             </p>
                           )}
+                          <p className="text-amber-400 text-xs mt-2">
+                            Demo Mode: Check browser console for OTP
+                          </p>
                         </div>
                         <label htmlFor="otp" className="block text-sm font-medium text-white/70 mb-3">
                           Enter OTP

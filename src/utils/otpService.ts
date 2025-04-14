@@ -10,20 +10,27 @@ interface VerifyOTPOptions {
   otp: string;
 }
 
-// This would be replaced with actual API calls in a production environment
+// Mock service that simulates sending an OTP
 export const otpService = {
   // Send OTP to email and/or phone
   sendOTP: async ({ email, phone }: SendOTPOptions): Promise<boolean> => {
     console.log(`Sending OTP to email: ${email} and phone: ${phone}`);
     
-    // In a real implementation, this would make an API call to your backend
-    // For demo purposes, we'll simulate a successful API call
     try {
       // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // For demo, we'll always return success
-      // In production, this would return the API response
+      // Generate a random 6-digit OTP for demo purposes
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      
+      // In a real implementation, this would send the OTP via email/SMS
+      // For demo purposes, we'll show it in the console
+      console.log(`DEMO MODE: Your OTP is ${otp}`);
+      
+      // Store OTP in sessionStorage for verification (ONLY for demo purposes)
+      // In production, this would be handled securely on the backend
+      sessionStorage.setItem('demo_otp', otp);
+      
       return true;
     } catch (error) {
       console.error("Error sending OTP:", error);
@@ -35,15 +42,22 @@ export const otpService = {
   verifyOTP: async ({ email, phone, otp }: VerifyOTPOptions): Promise<boolean> => {
     console.log(`Verifying OTP: ${otp} for email: ${email} and phone: ${phone}`);
     
-    // In a real implementation, this would make an API call to your backend
-    // For demo purposes, we'll simulate a successful verification if OTP is "123456"
     try {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // For demo purposes, any 6-digit OTP will be considered valid
-      // In production, this would validate against the backend
-      return otp.length === 6 && /^\d{6}$/.test(otp);
+      // For demo purposes, check against stored OTP or allow any 6-digit OTP
+      const storedOtp = sessionStorage.getItem('demo_otp');
+      
+      // Check if OTP matches stored OTP or is 123456 (for testing)
+      const isValid = (storedOtp && otp === storedOtp) || otp === '123456';
+      
+      if (isValid) {
+        // Clear stored OTP after successful verification
+        sessionStorage.removeItem('demo_otp');
+      }
+      
+      return isValid;
     } catch (error) {
       console.error("Error verifying OTP:", error);
       return false;

@@ -46,6 +46,28 @@ const Navbar = () => {
     setIsUserMenuOpen(false);
   };
 
+  // Format user data for display
+  const formatUserInfo = () => {
+    if (!userData) return null;
+    
+    return (
+      <div className="px-4 py-3">
+        {userData.name && (
+          <p className="text-sm font-medium text-review-cyan mb-1">{userData.name}</p>
+        )}
+        {userData.email && (
+          <p className="text-xs text-white/70 truncate mb-1">{userData.email}</p>
+        )}
+        {userData.phone && (
+          <p className="text-xs text-white/70 truncate">{userData.phone}</p>
+        )}
+        {userData.isEmployee && (
+          <p className="text-xs text-amber-400 font-medium mt-1">Employee Account</p>
+        )}
+      </div>
+    );
+  };
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -87,11 +109,9 @@ const Navbar = () => {
                 </button>
                 
                 {isUserMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 glass-morphism rounded-md shadow-lg py-1 z-50">
-                    <div className="px-4 py-3 border-b border-review-cyan/20">
-                      <p className="text-sm font-medium text-review-cyan">{userData?.name || "User"}</p>
-                      <p className="text-xs text-white/70 truncate">{userData?.email || ""}</p>
-                      <p className="text-xs text-white/70 truncate">{userData?.phone || ""}</p>
+                  <div className="absolute right-0 mt-2 w-64 glass-morphism rounded-md shadow-lg py-2 z-50">
+                    <div className="border-b border-review-cyan/20 pb-2 mb-2">
+                      {formatUserInfo()}
                     </div>
                     <button
                       onClick={handleLogout}
@@ -156,10 +176,7 @@ const Navbar = () => {
             
             {isLoggedIn ? (
               <div className="space-y-2 border-t border-review-cyan/20 pt-4 mt-2">
-                <div className="px-4 py-2">
-                  <p className="text-sm font-medium text-review-cyan">{userData?.name || "User"}</p>
-                  <p className="text-xs text-white/70 truncate">{userData?.email || ""}</p>
-                </div>
+                {formatUserInfo()}
                 <button
                   onClick={handleLogout}
                   className="w-full text-left text-lg font-medium py-2 px-4 rounded-md text-review-cyan hover:bg-review-cyan/5 transition-colors"
