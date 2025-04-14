@@ -51,12 +51,34 @@ const GameCard = ({
         </div>
 
         <div className="space-y-4">
-          <Button 
-            className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-            onClick={() => onPlayNow(title)}
-          >
-            Play Now
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <Button 
+              className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
+              onClick={() => onPlayNow(title)}
+            >
+              Play Now
+            </Button>
+            
+            {webUrl && (
+              <Button
+                className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
+                onClick={() => window.open(webUrl, '_blank')}
+              >
+                <ExternalLink className="w-4 h-4 mr-2" />
+                Play on Web
+              </Button>
+            )}
+            
+            {downloadUrl && (
+              <Button
+                className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
+                onClick={() => window.open(downloadUrl, '_blank')}
+              >
+                <Download className="w-4 h-4 mr-2" />
+                Download APK
+              </Button>
+            )}
+          </div>
 
           {fullDescription && (
             <Button
@@ -77,6 +99,8 @@ const GameCard = ({
             "space-y-4 overflow-hidden transition-all duration-300",
             isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
           )}>
+            <p className="text-gray-300 text-sm">{fullDescription}</p>
+            
             {image && (
               <img
                 src={image}
@@ -84,30 +108,6 @@ const GameCard = ({
                 className="w-full rounded-lg object-cover aspect-video"
               />
             )}
-            
-            <p className="text-gray-300 text-sm">{fullDescription}</p>
-
-            <div className="flex flex-col sm:flex-row gap-2">
-              {webUrl && (
-                <Button
-                  className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-                  onClick={() => window.open(webUrl, '_blank')}
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Play on Web
-                </Button>
-              )}
-              
-              {downloadUrl && (
-                <Button
-                  className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-                  onClick={() => window.open(downloadUrl, '_blank')}
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Download APK
-                </Button>
-              )}
-            </div>
           </div>
         </div>
       </CardContent>
