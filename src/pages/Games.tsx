@@ -4,10 +4,9 @@ import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
 import { Gamepad2, Joystick, Timer, Gamepad, Trophy, Puzzle, Zap } from "lucide-react";
 import { toast } from "sonner";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import AnimatedCard from "@/components/shared/AnimatedCard";
+import GameCard from "@/components/games/GameCard";
 
 const Games = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,10 +14,7 @@ const Games = () => {
   const totalPages = 3;
 
   useEffect(() => {
-    // Scroll to top when component mounts or page changes
     window.scrollTo(0, 0);
-    
-    // Set page title
     document.title = "Re-Games | Mobile & Web Gaming Experiences";
   }, [currentPage]);
 
@@ -39,9 +35,26 @@ const Games = () => {
     }
   };
 
-  // All games data
   const allGames = [
-    // Page 1
+    {
+      id: 0,
+      name: "Sudoku Sensei",
+      description: "A Japanese-themed Sudoku game that blends traditional logic with AI precision. Master the art of Sudoku with intelligent assistance.",
+      fullDescription: `Sudoku Sensei is a Japanese-themed Sudoku game that blends the elegance of traditional logic with the precision of AI. It's more than just a puzzle—it's a journey of mental mastery wrapped in serene design.
+
+✨ Key Features:
+
+🧠 AI Solver: Instantly solve puzzles by uploading an image—get intelligent, step-by-step solutions.
+🎮 30 Progressive Levels: Play through puzzles from beginner to grandmaster difficulty.
+🌸 Japanese Aesthetic: Sakura animations, ambient sounds, and minimalistic design with bilingual level names.
+📊 Smart Tools: Error detection, hints, scoring, offline mode, and dark theme.
+📷 OCR Scanning: Digitize printed puzzles into playable ones with integrated OCR.`,
+      tags: ["Puzzle", "AI-Powered", "Japanese"],
+      icon: <Puzzle className="w-12 h-12" />,
+      image: "https://i.ibb.co/CKkhHVd6/sudoku-1.jpg",
+      webUrl: "https://sudoku-sensei.reviewrv25.com",
+      downloadUrl: "https://bit.ly/4iUQDhc"
+    },
     {
       id: 1,
       name: "Cyber Racers",
@@ -98,7 +111,6 @@ const Games = () => {
       tags: ["Strategy", "MMO"],
       icon: <Gamepad className="w-12 h-12" />
     },
-    // Page 2
     {
       id: 9,
       name: "Ninja Warrior",
@@ -113,7 +125,6 @@ const Games = () => {
       tags: ["Exploration", "Sci-Fi"],
       icon: <Joystick className="w-12 h-12" />
     },
-    // Add more games for page 2 (IDs 11-16)
     {
       id: 11,
       name: "Word Wizards",
@@ -156,7 +167,6 @@ const Games = () => {
       tags: ["Casual", "Multiplayer"],
       icon: <Zap className="w-12 h-12" />
     },
-    // Page 3
     {
       id: 17,
       name: "Zombie Survival",
@@ -215,7 +225,6 @@ const Games = () => {
     }
   ];
 
-  // Get current page games
   const indexOfLastGame = currentPage * gamesPerPage;
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
   const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame);
@@ -229,24 +238,19 @@ const Games = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-review-darkblue">
-      {/* Gaming animation elements */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        {/* Controller animation */}
         <div className="absolute top-1/4 left-20 opacity-10 animate-float" style={{ animationDuration: "15s" }}>
           <Gamepad2 size={120} className="text-review-cyan" />
         </div>
         
-        {/* Console animation */}
         <div className="absolute bottom-1/4 right-20 opacity-10 animate-float" style={{ animationDuration: "18s", animationDelay: "2s" }}>
           <Joystick size={100} className="text-review-cyan" />
         </div>
         
-        {/* Timer animation */}
         <div className="absolute top-1/3 right-1/4 opacity-10 animate-float" style={{ animationDuration: "12s", animationDelay: "1s" }}>
           <Timer size={80} className="text-review-cyan" />
         </div>
         
-        {/* Gaming pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(#0AFFFF_1px,transparent_1px)] opacity-5" style={{ backgroundSize: "30px 30px" }}></div>
       </div>
       
@@ -263,44 +267,27 @@ const Games = () => {
               </p>
             </div>
             
-            {/* Game list in Cards */}
             <div className="mt-8">
               <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Games</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {currentGames.map((game, index) => (
                   <AnimatedCard key={game.id} delay={index * 100} className="h-full">
-                    <Card className="border-review-cyan/20 shadow-md bg-review-black/30 hover:shadow-lg transition-shadow h-full">
-                      <CardHeader>
-                        <div className="mb-4 text-review-cyan">
-                          {game.icon}
-                        </div>
-                        <CardTitle className="text-review-cyan">{game.name}</CardTitle>
-                        <CardDescription className="text-gray-300">
-                          {game.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex gap-2 mb-2">
-                          {game.tags.map((tag, i) => (
-                            <span key={i} className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">{tag}</span>
-                          ))}
-                        </div>
-                      </CardContent>
-                      <CardFooter>
-                        <Button 
-                          className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-                          onClick={() => handlePlayNow(game.name)}
-                        >
-                          Play Now
-                        </Button>
-                      </CardFooter>
-                    </Card>
+                    <GameCard
+                      title={game.name}
+                      description={game.description}
+                      fullDescription={game.fullDescription}
+                      icon={game.icon}
+                      tags={game.tags}
+                      image={game.image}
+                      webUrl={game.webUrl}
+                      downloadUrl={game.downloadUrl}
+                      onPlayNow={handlePlayNow}
+                    />
                   </AnimatedCard>
                 ))}
               </div>
               
-              {/* Pagination */}
               <div className="mt-12 mb-8">
                 <Pagination>
                   <PaginationContent>
@@ -336,7 +323,6 @@ const Games = () => {
               </div>
             </div>
             
-            {/* Upcoming Games Section */}
             <div className="mt-16">
               <h2 className="text-2xl font-bold text-review-cyan mb-6">Upcoming Releases</h2>
               
@@ -348,7 +334,6 @@ const Games = () => {
                   
                   <h3 className="text-review-cyan text-lg font-semibold mb-2">Want to be notified about new games?</h3>
                   
-                  {/* Email signup form */}
                   <form onSubmit={handleSubscribe} className="max-w-md mx-auto">
                     <div className="flex flex-col sm:flex-row gap-2">
                       <input 
