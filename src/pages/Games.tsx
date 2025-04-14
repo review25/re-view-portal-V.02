@@ -1,21 +1,27 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
-import { Gamepad2, Joystick, Timer } from "lucide-react";
+import { Gamepad2, Joystick, Timer, Gamepad, Trophy, PuzzlePiece, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import AnimatedCard from "@/components/shared/AnimatedCard";
 
 const Games = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const gamesPerPage = 8;
+  const totalPages = 3;
+
   useEffect(() => {
-    // Scroll to top when component mounts
+    // Scroll to top when component mounts or page changes
     window.scrollTo(0, 0);
     
     // Set page title
     document.title = "Re-Games | Mobile & Web Gaming Experiences";
-  }, []);
+  }, [currentPage]);
 
   const handlePlayNow = (gameName: string) => {
     toast.success(`Loading ${gameName}... Get ready to play!`);
@@ -31,6 +37,194 @@ const Games = () => {
       emailInput.value = '';
     } else {
       toast.error("Please enter a valid email address");
+    }
+  };
+
+  // All games data
+  const allGames = [
+    // Page 1
+    {
+      id: 1,
+      name: "Cyber Racers",
+      description: "A high-speed racing game set in a futuristic cyberpunk world. Customize your vehicle and compete against AI or human players.",
+      tags: ["Racing", "Multiplayer"],
+      icon: <Gamepad2 className="w-12 h-12" />
+    },
+    {
+      id: 2,
+      name: "Cosmic Defenders",
+      description: "An epic space adventure game where you defend your galaxy against alien invaders. Upgrade your weapons and unlock new abilities.",
+      tags: ["Action", "Strategy"],
+      icon: <Joystick className="w-12 h-12" />
+    },
+    {
+      id: 3,
+      name: "Puzzle Master",
+      description: "Challenge your brain with hundreds of unique puzzles. From simple to mind-bending, there's something for everyone.",
+      tags: ["Puzzle", "Casual"],
+      icon: <PuzzlePiece className="w-12 h-12" />
+    },
+    {
+      id: 4,
+      name: "Speed Legends",
+      description: "Become the fastest driver in this adrenaline-pumping racing simulator with realistic physics and stunning environments.",
+      tags: ["Racing", "Simulation"],
+      icon: <Zap className="w-12 h-12" />
+    },
+    {
+      id: 5,
+      name: "Battle Arena",
+      description: "Enter the arena and fight your way to glory in this competitive multiplayer battle game with unique character abilities.",
+      tags: ["Action", "PvP"],
+      icon: <Trophy className="w-12 h-12" />
+    },
+    {
+      id: 6,
+      name: "Mystery Manor",
+      description: "Solve the mystery of the abandoned manor by finding clues, solving puzzles, and uncovering the dark secrets within.",
+      tags: ["Adventure", "Mystery"],
+      icon: <Gamepad className="w-12 h-12" />
+    },
+    {
+      id: 7,
+      name: "Rhythm Master",
+      description: "Test your musical timing and reflexes in this addictive rhythm game featuring tracks from popular artists.",
+      tags: ["Rhythm", "Music"],
+      icon: <Gamepad2 className="w-12 h-12" />
+    },
+    {
+      id: 8,
+      name: "Fantasy Kingdoms",
+      description: "Build and expand your medieval kingdom, form alliances, and conquer rival territories in this strategy game.",
+      tags: ["Strategy", "MMO"],
+      icon: <Gamepad className="w-12 h-12" />
+    },
+    // Page 2
+    {
+      id: 9,
+      name: "Ninja Warrior",
+      description: "Master the art of stealth and combat as a ninja warrior on a mission to defeat evil forces threatening your clan.",
+      tags: ["Action", "Adventure"],
+      icon: <Gamepad2 className="w-12 h-12" />
+    },
+    {
+      id: 10,
+      name: "Space Explorers",
+      description: "Embark on an interstellar journey to explore uncharted planets, discover alien species, and collect valuable resources.",
+      tags: ["Exploration", "Sci-Fi"],
+      icon: <Joystick className="w-12 h-12" />
+    },
+    // Add more games for page 2 (IDs 11-16)
+    {
+      id: 11,
+      name: "Word Wizards",
+      description: "Put your vocabulary to the test in this word puzzle game with multiple challenging modes and daily competitions.",
+      tags: ["Word", "Puzzle"],
+      icon: <PuzzlePiece className="w-12 h-12" />
+    },
+    {
+      id: 12,
+      name: "Football Champions",
+      description: "Lead your team to victory in this realistic football simulation game with authentic teams and strategic gameplay.",
+      tags: ["Sports", "Simulation"],
+      icon: <Trophy className="w-12 h-12" />
+    },
+    {
+      id: 13,
+      name: "Monster Hunter",
+      description: "Track and hunt legendary monsters across vast landscapes while upgrading your gear and mastering different weapons.",
+      tags: ["RPG", "Action"],
+      icon: <Gamepad className="w-12 h-12" />
+    },
+    {
+      id: 14,
+      name: "City Builder",
+      description: "Design and develop your dream city, manage resources, and keep your citizens happy in this immersive simulation.",
+      tags: ["Simulation", "Strategy"],
+      icon: <Joystick className="w-12 h-12" />
+    },
+    {
+      id: 15,
+      name: "Dungeon Delver",
+      description: "Explore randomly generated dungeons, fight monsters, and collect treasure in this roguelike adventure.",
+      tags: ["Roguelike", "RPG"],
+      icon: <Gamepad2 className="w-12 h-12" />
+    },
+    {
+      id: 16,
+      name: "Cooking Master",
+      description: "Test your culinary skills in fast-paced cooking challenges against the clock or other players online.",
+      tags: ["Casual", "Multiplayer"],
+      icon: <Zap className="w-12 h-12" />
+    },
+    // Page 3
+    {
+      id: 17,
+      name: "Zombie Survival",
+      description: "Survive in a post-apocalyptic world overrun by zombies. Scavenge for supplies and build defenses to stay alive.",
+      tags: ["Survival", "Horror"],
+      icon: <Gamepad className="w-12 h-12" />
+    },
+    {
+      id: 18,
+      name: "Card Kingdom",
+      description: "Collect cards, build powerful decks, and battle against other players in this strategic card game.",
+      tags: ["Card Game", "Strategy"],
+      icon: <Trophy className="w-12 h-12" />
+    },
+    {
+      id: 19,
+      name: "Astro Golf",
+      description: "Play golf across the galaxy on planets with different gravity, obstacles, and environments.",
+      tags: ["Sports", "Casual"],
+      icon: <PuzzlePiece className="w-12 h-12" />
+    },
+    {
+      id: 20,
+      name: "Pirate Adventures",
+      description: "Set sail on the high seas, discover treasure islands, engage in ship battles, and become the most feared pirate.",
+      tags: ["Adventure", "Open World"],
+      icon: <Gamepad2 className="w-12 h-12" />
+    },
+    {
+      id: 21,
+      name: "Robot Wars",
+      description: "Build and customize battle robots, then fight in arena competitions against other robot engineers.",
+      tags: ["Action", "Building"],
+      icon: <Joystick className="w-12 h-12" />
+    },
+    {
+      id: 22,
+      name: "Fashion Designer",
+      description: "Create trendy fashion designs, run your own boutique, and become a famous fashion designer.",
+      tags: ["Simulation", "Casual"],
+      icon: <Zap className="w-12 h-12" />
+    },
+    {
+      id: 23,
+      name: "Desert Racing",
+      description: "Race through challenging desert terrain in powerful off-road vehicles under extreme weather conditions.",
+      tags: ["Racing", "Extreme"],
+      icon: <Gamepad className="w-12 h-12" />
+    },
+    {
+      id: 24,
+      name: "Magic Academy",
+      description: "Attend a school of magic, learn spells, brew potions, and compete in magical tournaments.",
+      tags: ["Fantasy", "RPG"],
+      icon: <PuzzlePiece className="w-12 h-12" />
+    }
+  ];
+
+  // Get current page games
+  const indexOfLastGame = currentPage * gamesPerPage;
+  const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+  const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      window.scrollTo(0, 0);
     }
   };
 
@@ -74,87 +268,72 @@ const Games = () => {
             <div className="mt-8">
               <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Games</h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {/* Game 1 */}
-                <Card className="border-review-cyan/20 shadow-md bg-review-black/30 hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="mb-4 text-review-cyan">
-                      <Gamepad2 className="w-12 h-12" />
-                    </div>
-                    <CardTitle className="text-review-cyan">Cyber Racers</CardTitle>
-                    <CardDescription className="text-gray-300">
-                      A high-speed racing game set in a futuristic cyberpunk world. Customize your vehicle and compete against AI or human players.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex gap-2 mb-2">
-                      <span className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">Racing</span>
-                      <span className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">Multiplayer</span>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button 
-                      className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-                      onClick={() => handlePlayNow("Cyber Racers")}
-                    >
-                      Play Now
-                    </Button>
-                  </CardFooter>
-                </Card>
-                
-                {/* Game 2 */}
-                <Card className="border-review-cyan/20 shadow-md bg-review-black/30 hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="mb-4 text-review-cyan">
-                      <Gamepad2 className="w-12 h-12" />
-                    </div>
-                    <CardTitle className="text-review-cyan">Cosmic Defenders</CardTitle>
-                    <CardDescription className="text-gray-300">
-                      An epic space adventure game where you defend your galaxy against alien invaders. Upgrade your weapons and unlock new abilities.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex gap-2 mb-2">
-                      <span className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">Action</span>
-                      <span className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">Strategy</span>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button 
-                      className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-                      onClick={() => handlePlayNow("Cosmic Defenders")}
-                    >
-                      Play Now
-                    </Button>
-                  </CardFooter>
-                </Card>
-                
-                {/* Game 3 */}
-                <Card className="border-review-cyan/20 shadow-md bg-review-black/30 hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="mb-4 text-review-cyan">
-                      <Gamepad2 className="w-12 h-12" />
-                    </div>
-                    <CardTitle className="text-review-cyan">Puzzle Master</CardTitle>
-                    <CardDescription className="text-gray-300">
-                      Challenge your brain with hundreds of unique puzzles. From simple to mind-bending, there's something for everyone.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex gap-2 mb-2">
-                      <span className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">Puzzle</span>
-                      <span className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">Casual</span>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button 
-                      className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
-                      onClick={() => handlePlayNow("Puzzle Master")}
-                    >
-                      Play Now
-                    </Button>
-                  </CardFooter>
-                </Card>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {currentGames.map((game, index) => (
+                  <AnimatedCard key={game.id} delay={index * 100} className="h-full">
+                    <Card className="border-review-cyan/20 shadow-md bg-review-black/30 hover:shadow-lg transition-shadow h-full">
+                      <CardHeader>
+                        <div className="mb-4 text-review-cyan">
+                          {game.icon}
+                        </div>
+                        <CardTitle className="text-review-cyan">{game.name}</CardTitle>
+                        <CardDescription className="text-gray-300">
+                          {game.description}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex gap-2 mb-2">
+                          {game.tags.map((tag, i) => (
+                            <span key={i} className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">{tag}</span>
+                          ))}
+                        </div>
+                      </CardContent>
+                      <CardFooter>
+                        <Button 
+                          className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
+                          onClick={() => handlePlayNow(game.name)}
+                        >
+                          Play Now
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </AnimatedCard>
+                ))}
+              </div>
+              
+              {/* Pagination */}
+              <div className="mt-12 mb-8">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        className={`${currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'} text-review-cyan border border-review-cyan/30`}
+                      />
+                    </PaginationItem>
+                    {[1, 2, 3].map((page) => (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          isActive={currentPage === page}
+                          onClick={() => handlePageChange(page)}
+                          className={`cursor-pointer ${
+                            currentPage === page
+                              ? 'bg-review-cyan text-review-black border border-review-cyan'
+                              : 'text-review-cyan border border-review-cyan/30'
+                          }`}
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+                    <PaginationItem>
+                      <PaginationNext 
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        className={`${currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'} text-review-cyan border border-review-cyan/30`}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
               </div>
             </div>
             
