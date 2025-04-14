@@ -1,8 +1,9 @@
+
 import { useEffect, useState } from "react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ChatBot from "../components/home/ChatBot";
-import { Gamepad2, Joystick, Timer, Gamepad, Trophy, Puzzle, Zap } from "lucide-react";
+import { Gamepad2, Joystick, Timer, Gamepad, Trophy, Puzzle, Zap, Brain, ScanSearch } from "lucide-react";
 import { toast } from "sonner";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,22 @@ const Games = () => {
 
   // All games data
   const allGames = [
+    // Adding Sudoku Sensei as the first game
+    {
+      id: 0,
+      name: "Sudoku Sensei",
+      description: "Master Sudoku with AI & Japanese Wisdom. Experience Sudoku like never before with AI solver, 30 levels of strategy, soothing aesthetics, and OCR magic.",
+      tags: ["Puzzle", "Strategy", "AI"],
+      icon: <Brain className="w-12 h-12" />,
+      featured: true,
+      features: [
+        "AI Solver: Snap a pic of any puzzle and let our smart solver guide you",
+        "30 Levels of Strategy: Progress from Beginner to Master",
+        "Soothing Japanese Aesthetics: Sakura animations and tranquil tunes",
+        "Smart Play Tools: Hints, real-time error checks, dark/offline modes",
+        "OCR Magic: Convert printed puzzles into digital form"
+      ]
+    },
     // Page 1
     {
       id: 1,
@@ -220,6 +237,9 @@ const Games = () => {
   const indexOfFirstGame = indexOfLastGame - gamesPerPage;
   const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame);
 
+  // Find featured game (Sudoku Sensei)
+  const featuredGame = allGames.find(game => game.featured);
+
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
@@ -263,9 +283,64 @@ const Games = () => {
               </p>
             </div>
             
+            {/* Featured Game - Sudoku Sensei */}
+            {featuredGame && (
+              <div className="mb-16">
+                <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Game</h2>
+                <AnimatedCard delay={0} className="h-full">
+                  <Card className="border-review-cyan/20 shadow-md bg-review-black/30 hover:shadow-lg transition-shadow overflow-hidden">
+                    <div className="md:flex">
+                      <div className="md:w-2/5 bg-gradient-to-br from-purple-900 to-blue-800 p-6 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-review-cyan mx-auto mb-4">
+                            <Brain className="w-24 h-24 md:w-32 md:h-32 mx-auto" />
+                          </div>
+                          <h3 className="text-3xl font-bold text-white mb-2">{featuredGame.name}</h3>
+                          <div className="flex gap-2 mb-4 flex-wrap justify-center">
+                            {featuredGame.tags.map((tag, i) => (
+                              <span key={i} className="bg-review-cyan/10 text-review-cyan text-xs font-medium px-2.5 py-0.5 rounded">{tag}</span>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="md:w-3/5 p-6">
+                        <p className="text-gray-300 mb-4">
+                          {featuredGame.description}
+                        </p>
+                        <h4 className="text-review-cyan font-semibold mb-2">✨ Features You'll Love:</h4>
+                        <ul className="space-y-2 mb-6">
+                          {featuredGame.features.map((feature, index) => (
+                            <li key={index} className="flex items-start gap-2">
+                              <span className="text-review-cyan">•</span>
+                              <span className="text-gray-300 text-sm">{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                        <div className="flex gap-4 flex-wrap">
+                          <Button 
+                            className="bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
+                            onClick={() => handlePlayNow(featuredGame.name)}
+                          >
+                            Play on Web
+                          </Button>
+                          <Button
+                            variant="outline"
+                            className="text-white border-review-cyan/30 hover:bg-review-cyan/10"
+                            onClick={() => toast.success(`Downloading ${featuredGame.name}... Please check your downloads.`)}
+                          >
+                            Download APK
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </Card>
+                </AnimatedCard>
+              </div>
+            )}
+            
             {/* Game list in Cards */}
             <div className="mt-8">
-              <h2 className="text-2xl font-bold text-review-cyan mb-6">Featured Games</h2>
+              <h2 className="text-2xl font-bold text-review-cyan mb-6">All Games</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {currentGames.map((game, index) => (
