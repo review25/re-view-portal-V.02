@@ -32,6 +32,15 @@ const GameCard = ({
 
   return (
     <Card className="border-review-cyan/20 shadow-md bg-review-black/30 hover:shadow-lg transition-shadow h-full">
+      {image && (
+        <div className="w-full h-48 overflow-hidden rounded-t-lg">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
       <CardHeader>
         <div className="mb-4 text-review-cyan">
           {icon}
@@ -51,10 +60,10 @@ const GameCard = ({
         </div>
 
         <div className="space-y-4">
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col gap-2">
             {webUrl && (
               <Button
-                className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
+                className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
                 onClick={() => window.open(webUrl, '_blank')}
               >
                 <ExternalLink className="w-4 h-4 mr-2" />
@@ -64,7 +73,7 @@ const GameCard = ({
             
             {downloadUrl && (
               <Button
-                className="flex-1 bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
+                className="w-full bg-review-black hover:bg-gray-900 text-review-cyan border border-review-cyan/30"
                 onClick={() => window.open(downloadUrl, '_blank')}
               >
                 <Download className="w-4 h-4 mr-2" />
@@ -93,14 +102,6 @@ const GameCard = ({
             isExpanded ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
           )}>
             <p className="text-gray-300 text-sm whitespace-pre-wrap">{fullDescription}</p>
-            
-            {image && (
-              <img
-                src={image}
-                alt={title}
-                className="w-full rounded-lg object-cover aspect-video"
-              />
-            )}
           </div>
         </div>
       </CardContent>
