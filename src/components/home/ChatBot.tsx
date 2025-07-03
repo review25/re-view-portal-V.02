@@ -20,11 +20,11 @@ const initialMessages: Message[] = [
 
 // Predefined quick action buttons
 const quickActions = [
-  { text: "🎮 Games", url: "/games" },
-  { text: "🛠️ View Kits", url: "/labs" },
-  { text: "📱 See Prototypes", url: "/studios" },
-  { text: "🤝 Join Us", url: "/studios" },
-  { text: "💌 Contact", url: "/labs" },
+  { text: "📱 View Sites", url: "/studios" },
+  { text: "🎮 Play Games", url: "/games" },
+  { text: "🛠️ buy Kits", url: "/labs" },
+  
+  ,
 ];
 
 const ChatBot = () => {

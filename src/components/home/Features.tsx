@@ -20,14 +20,7 @@ const features = [
     path: "/studios",
     buttonText: "View Applications"
   },
-  {
-    title: "N-8 Labs",
-    description: "Educational ECE/EEE project kits for B.Tech students, including both mini and major project solutions.",
-    icon: Cpu,
-    color: "from-cyan-500 to-teal-500",
-    path: "/labs",
-    buttonText: "Discover Kits"
-  }
+  
 ];
 
 const Features = () => {
@@ -43,10 +36,10 @@ const Features = () => {
       <div className="container mx-auto">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wide text-review-cyan bg-review-cyan/10 rounded-full mb-4">
-            Our Offerings
+           
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Comprehensive Digital <span className="text-gradient">Solutions</span>
+            Comprehensive Tech <span className="text-gradient">Solutions</span>
           </h2>
           <p className="text-white/70">
             From immersive games to professional applications and educational technology, 
@@ -54,7 +47,7 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-center md:justify-items-center">
           {features.map((feature, index) => (
             <div 
               key={feature.title}

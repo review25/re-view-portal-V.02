@@ -16,29 +16,34 @@ const AboutSection = () => {
               inView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
             }`}
           >
-            <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wide text-review-cyan bg-review-cyan/10 rounded-full mb-4">
-              About Us
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Redefining Digital <span className="text-gradient">Experiences</span>
-            </h2>
-            <div className="space-y-4 text-white/70">
-              <p>
-                Re-View, meaning "to view again," is a software-based company focused on creating
-                innovative digital solutions across multiple platforms.
-              </p>
-              <p>
-                Our mission is to combine cutting-edge technology with intuitive design, delivering
-                experiences that captivate, educate, and inspire users across our three main divisions.
-              </p>
-              <p>
-                From immersive games that push creative boundaries to professional applications that
-                streamline workflows, and educational technology kits that make learning interactive,
-                we're committed to excellence in every project we undertake.
-              </p>
-            </div>
-          </div>
-          
+           <span className="inline-block px-3 py-1 text-xs font-semibold tracking-wide text-review-cyan bg-review-cyan/10 rounded-full mb-4">
+  About Us
+</span>
+<h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+  Building the Future of
+</h2>
+<h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+   <span className="text-gradient">AI Technology</span>
+</h2>
+<div className="space-y-4 text-white/70">
+  <p>
+    At Re-View, we don’t just develop software—we create dynamic digital experiences. As a technology-driven company, we build our own cutting-edge apps and games while also offering comprehensive IT services to businesses of all sizes.
+  </p>
+  <p>
+    Our expertise spans across multiple industries, delivering high-quality mobile and web applications, immersive gaming experiences, and robust IT solutions that empower businesses and individuals alike. We believe in leveraging technology to solve real-world problems and enhance everyday digital interactions.
+  </p>
+  <p>
+    With a commitment to innovation and excellence, we specialize in:
+  </p>
+  <ul className="list-disc pl-5 space-y-2">
+    <li>Developing intuitive mobile and web applications that drive user engagement.</li>
+    <li>Providing end-to-end IT services, from software development to system integration and support.</li>
+  </ul>
+  <p>
+    Our mission is to push the boundaries of what’s possible, ensuring that every project we undertake is not just functional but transformative. At Re-View, the future of digital innovation is built today.
+  </p>
+</div>
+</div>
           <div 
             className={`relative transition-all duration-700 delay-300 ${
               inView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
@@ -50,27 +55,27 @@ const AboutSection = () => {
                 <div className="space-y-6">
                   <div className="space-y-2">
                     <h3 className="text-xl font-bold text-white">Our Vision</h3>
-                    <p className="text-white/80">To redefine how users interact with technology through innovation and design excellence.</p>
+                    <p className="text-white/80"> To transform the way people interact with technology by developing innovative, intelligent, and efficient software solutions.</p>
                   </div>
                   
                   <div className="space-y-2">
                     <h3 className="text-xl font-bold text-white">Our Approach</h3>
-                    <p className="text-white/80">We combine technical expertise with creative thinking to deliver solutions that exceed expectations.</p>
+                    <p className="text-white/80"> We combine technical expertise with creative problem-solving to engineer software that is powerful, adaptable, and built for the future.</p>
                   </div>
                 </div>
                 
                 <div className="grid grid-cols-3 gap-4 mt-8">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-white">50+</div>
-                    <div className="text-sm text-white/70">Projects</div>
+                    <div className="text-2xl font-bold text-white"></div>
+                    <div className="text-sm text-white/70"></div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-white">20+</div>
-                    <div className="text-sm text-white/70">Games</div>
+                    <div className="text-2xl font-bold text-white"></div>
+                    <div className="text-sm text-white/70"></div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-white">15+</div>
-                    <div className="text-sm text-white/70">Kits</div>
+                    <div className="text-2xl font-bold text-white"></div>
+                    <div className="text-sm text-white/70"></div>
                   </div>
                 </div>
               </div>

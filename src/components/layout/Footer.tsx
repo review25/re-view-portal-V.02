@@ -1,4 +1,3 @@
-
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "../ui/Logo";
@@ -15,9 +14,10 @@ const Footer = () => {
             <p className="text-white/70 text-sm mt-4 max-w-xs">
               Re-View is a software-based company focused on creating innovative games, applications, and educational technology kits.
             </p>
+            <p>reviewrv25@gmail.com</p>
             <div className="flex space-x-4 mt-6">
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/share/1XVwdmm6fe/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full flex items-center justify-center border border-review-cyan/30 text-review-cyan hover:bg-review-cyan/10 transition-colors"
@@ -26,7 +26,7 @@ const Footer = () => {
                 <Facebook size={18} />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/re_view.official?igsh=MW04emczang1ZDQxNw==" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full flex items-center justify-center border border-review-cyan/30 text-review-cyan hover:bg-review-cyan/10 transition-colors"
@@ -35,7 +35,7 @@ const Footer = () => {
                 <Instagram size={18} />
               </a>
               <a 
-                href="https://linkedin.com" 
+                href="http://linkedin.com/company/re-viewrv25" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full flex items-center justify-center border border-review-cyan/30 text-review-cyan hover:bg-review-cyan/10 transition-colors"
@@ -44,7 +44,7 @@ const Footer = () => {
                 <Linkedin size={18} />
               </a>
               <a 
-                href="https://twitter.com" 
+                href="https://x.com/review_rvoffl?t=Oa80sXJUn9hlZVDUD1rs-w&s=08" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full flex items-center justify-center border border-review-cyan/30 text-review-cyan hover:bg-review-cyan/10 transition-colors"
@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-white font-semibold mb-4">Products</h4>
+            <h4 className="text-white font-semibold mb-4">Check Out </h4>
             <ul className="space-y-2">
               <li>
                 <Link to="/games" className="text-white/70 hover:text-review-cyan transition-colors">
@@ -68,11 +68,6 @@ const Footer = () => {
                   Apps & Websites
                 </Link>
               </li>
-              <li>
-                <Link to="/labs" className="text-white/70 hover:text-review-cyan transition-colors">
-                  Project Kits
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -80,19 +75,19 @@ const Footer = () => {
             <h4 className="text-white font-semibold mb-4">Resources</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/about" className="text-white/70 hover:text-review-cyan transition-colors">
+                <a href="/webpages/about.html" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-review-cyan transition-colors">
                   About Us
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/contact" className="text-white/70 hover:text-review-cyan transition-colors">
+                <a href="/webpages/contact.html" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-review-cyan transition-colors">
                   Contact
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/faq" className="text-white/70 hover:text-review-cyan transition-colors">
-                  FAQ
-                </Link>
+                <a href="/webpages/faq.html" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-review-cyan transition-colors">
+                  FAQ's
+                </a>
               </li>
             </ul>
           </div>
@@ -101,14 +96,14 @@ const Footer = () => {
             <h4 className="text-white font-semibold mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <Link to="/privacy" className="text-white/70 hover:text-review-cyan transition-colors">
+                <a href="/webpages/policy.html" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-review-cyan transition-colors">
                   Privacy Policy
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/terms" className="text-white/70 hover:text-review-cyan transition-colors">
+                <a href="/webpages/service.html" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-review-cyan transition-colors">
                   Terms of Service
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -119,7 +114,7 @@ const Footer = () => {
             &copy; {currentYear} Re-View. All rights reserved.
           </p>
           <p className="text-white/50 text-sm mt-2 md:mt-0">
-            Designed with precision. Built with passion.
+            See Beyond Possibilities....
           </p>
         </div>
       </div>

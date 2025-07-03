@@ -26,7 +26,7 @@ const Studios = () => {
       isLive: true,
       description: "Smart Citizen Issue Management System for reporting, tracking, and resolving civic issues.",
       detailedDescription: "JAGRUTHI is a state-of-the-art web-based platform developed to streamline the reporting, tracking, and resolution of civic issues. Designed with user-centric principles, the system provides citizens with an intuitive interface to report problems in their community. The platform delivers real-time updates on the status of reported issues, fostering transparency and enhancing communication between citizens and authorities.",
-      tags: ["React", "Netlify", "Serverless"],
+      tags: ["PUBLIC", "AI", "PROTOTYPE"],
       icon: <img 
               src="/lovable-uploads/5c17870b-8597-4392-b50b-9899f699e190.png"
               alt="JAGRUTHI Logo"

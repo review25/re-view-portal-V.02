@@ -13,7 +13,7 @@ const Index = () => {
     window.scrollTo(0, 0);
     
     // Set page title
-    document.title = "Re-View | Innovative Digital Experiences";
+    document.title = "Re-View ";
   }, []);
 
   return (

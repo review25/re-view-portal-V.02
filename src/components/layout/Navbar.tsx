@@ -28,11 +28,10 @@ const Navbar = () => {
   }, [location.pathname]);
 
   const navigationLinks = [
-    { name: "Home", path: "/" },
-    { name: "Re-Games", path: "/games", protected: true },
-    { name: "View-Studios", path: "/studios", protected: true },
-    { name: "N-8 Labs", path: "/labs", protected: true },
-  ];
+  { name: "Home", path: "/" },
+  { name: "Re-Games", path: "/games", protected: true },
+  { name: "View-Studios", path: "/studios", protected: true },
+];
 
   const isActive = (path: string) => {
     if (path === "/" && location.pathname === "/") return true;

@@ -9,7 +9,6 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import Index from "./pages/Index";
 import Games from "./pages/Games";
 import Studios from "./pages/Studios";
-import Labs from "./pages/Labs";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
@@ -52,14 +51,7 @@ const App = () => {
                   </ProtectedRoute>
                 } 
               />
-              <Route 
-                path="/labs" 
-                element={
-                  <ProtectedRoute>
-                    <Labs />
-                  </ProtectedRoute>
-                } 
-              />
+             
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

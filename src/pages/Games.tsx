@@ -41,7 +41,6 @@ const Games = () => {
     {
       id: 0,
       name: "Sudoku Sensei",
-      description: "A Japanese-themed Sudoku game that blends traditional logic with AI precision. Master the art of Sudoku with intelligent assistance.",
       fullDescription: `Sudoku Sensei is a Japanese-themed Sudoku game that blends the elegance of traditional logic with the precision of AI. It's more than just a puzzle—it's a journey of mental mastery wrapped in serene design.
 
 ✨ Key Features:
@@ -51,11 +50,11 @@ const Games = () => {
 🌸 Japanese Aesthetic: Sakura animations, ambient sounds, and minimalistic design with bilingual level names.
 📊 Smart Tools: Error detection, hints, scoring, offline mode, and dark theme.
 📷 OCR Scanning: Digitize printed puzzles into playable ones with integrated OCR.`,
-      tags: ["Puzzle", "AI-Powered", "Japanese"],
-      icon: <Puzzle className="w-12 h-12" />,
+      tags: ["Puzzle", "AI", "Japanese"],
+    
       image: "https://i.ibb.co/CKkhHVd6/sudoku-1.jpg",
       webUrl: "https://sudoku-sensei.reviewrv25.com",
-      downloadUrl: "https://bit.ly/4iUQDhc"
+      downloadUrl: "https://sudoku-sensei.reviewrv25.com/sudoku-sensei.apk",
     },
     {
       id: 1,
