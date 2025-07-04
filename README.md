@@ -73,9 +73,9 @@ We don't support custom domains (yet). If you want to deploy your project under 
 >>>>>>> aaf40c7df31d2f2fa57d013b9885396557e8a518
 
 # How to run backend
-cd backend
-then npm install
-nodemon server.js
+ #cd backend
+#then npm install
+#nodemon server.js
 
 
 # Done 
