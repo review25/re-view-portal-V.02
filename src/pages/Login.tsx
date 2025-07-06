@@ -55,7 +55,7 @@ const Login = () => {
 
     try {
       if (isLogin) {
-        const response = await axios.post("http://localhost:5000/login", {
+        const response = await axios.post("https://re-view-portal-v-02.onrender.com/login", {
           email: userIdOrEmail,
           password,
         });
@@ -71,7 +71,7 @@ const Login = () => {
           return;
         }
 
-        const response = await axios.post("http://localhost:5000/signUp", {
+        const response = await axios.post("https://re-view-portal-v-02.onrender.com/signUp", {
           fullName: name,
           email,
           password,
