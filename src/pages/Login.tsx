@@ -137,7 +137,7 @@ const Login = () => {
                 {!isLogin && (
                   <>
                     <div>
-                      <label className="block text-sm text-white/70 mb-1">Full Name</label>
+                      <label className="block text-sm text-white/70 mb-1">User Name</label>
                       <input
                         type="text"
                         value={name}
@@ -162,16 +162,7 @@ const Login = () => {
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-sm text-white/70 mb-1">Generated Review ID</label>
-                      <input
-                        type="text"
-                        value={generatedId}
-                        disabled
-                        readOnly
-                        className="w-full px-4 py-2 rounded-lg bg-white/20 border border-review-cyan/30 text-white cursor-not-allowed"
-                      />
-                    </div>
+                   
                   </>
                 )}
 
