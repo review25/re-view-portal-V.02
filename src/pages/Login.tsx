@@ -4,6 +4,7 @@ import { Eye, EyeOff, Loader2 } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { AuthContext } from "../contexts/AuthContext";
+import axios from "axios";
 
 const Popup = ({ message, onClose }: { message: string; onClose: () => void }) => (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
@@ -25,7 +26,6 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
 
-  // Form fields
   const [userIdOrEmail, setUserIdOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -38,8 +38,7 @@ const Login = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = isLogin ? "Login to your Re-View Account" : "Register a New Re-View Account";
-
-    if (isLoggedIn) navigate('/');
+    if (isLoggedIn) navigate("/");
   }, [isLogin, isLoggedIn, navigate]);
 
   useEffect(() => {
@@ -50,55 +49,43 @@ const Login = () => {
     }
   }, [name]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const users = JSON.parse(localStorage.getItem("review_users") || "{}");
-
       if (isLogin) {
-        const user = Object.values(users).find((u: any) =>
-          u.email === userIdOrEmail || u.userId === userIdOrEmail
-        );
+        const response = await axios.post("https://re-view-portal-v-02.onrender.com/login", {
+          email: userIdOrEmail,
+          password,
+        });
 
-        if (!user) {
-          setPopupMessage("No user found. Please register.");
-        } else if (user.password !== password) {
-          setPopupMessage("Incorrect password.");
-        } else {
-          login(user);
-          setPopupMessage("Login successful!");
-        }
+        const { token, user } = response.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        login(user);
+        setPopupMessage("Login successful!");
       } else {
         if (!name || !email || !password) {
           setPopupMessage("All fields are required.");
           return;
         }
 
-        const existingUser = Object.values(users).find((u: any) =>
-          u.email === email || u.userId === generatedId
-        );
+        const response = await axios.post("https://re-view-portal-v-02.onrender.com/signUp", {
+          fullName: name,
+          email,
+          password,
+        });
 
-        if (existingUser) {
-          setPopupMessage("User already exists. Please login.");
-        } else {
-          const newUser = {
-            name,
-            userId: generatedId,
-            email,
-            password,
-            isEmployee: false
-          };
-          users[newUser.userId] = newUser;
-          localStorage.setItem("review_users", JSON.stringify(users));
-          login(newUser);
-          setPopupMessage("Registration successful!");
-        }
+        const { token, user } = response.data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        login(user);
+        setPopupMessage("Registration successful!");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Auth error:", error);
-      setPopupMessage("An unexpected error occurred.");
+      setPopupMessage(error.response?.data?.error || "An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }
@@ -107,11 +94,15 @@ const Login = () => {
   return (
     <div className="min-h-screen flex flex-col bg-review-darkblue">
       <Navbar />
-
-      {popupMessage && <Popup message={popupMessage} onClose={() => {
-        setPopupMessage("");
-        if (popupMessage.includes("successful")) navigate("/");
-      }} />}
+      {popupMessage && (
+        <Popup
+          message={popupMessage}
+          onClose={() => {
+            setPopupMessage("");
+            if (popupMessage.includes("successful")) navigate("/");
+          }}
+        />
+      )}
 
       <main className="flex-grow flex items-center justify-center py-20">
         <div className="w-full max-w-md px-4">
@@ -146,7 +137,7 @@ const Login = () => {
                 {!isLogin && (
                   <>
                     <div>
-                      <label className="block text-sm text-white/70 mb-1">Full Name</label>
+                      <label className="block text-sm text-white/70 mb-1">User Name</label>
                       <input
                         type="text"
                         value={name}
@@ -171,28 +162,19 @@ const Login = () => {
                       />
                     </div>
 
-                    <div>
-                      <label className="block text-sm text-white/70 mb-1">Generated Review ID</label>
-                      <input
-                        type="text"
-                        value={generatedId}
-                        disabled
-                        readOnly
-                        className="w-full px-4 py-2 rounded-lg bg-white/20 border border-review-cyan/30 text-white cursor-not-allowed"
-                      />
-                    </div>
+                   
                   </>
                 )}
 
                 {isLogin && (
                   <div>
-                    <label className="block text-sm text-white/70 mb-1">Email or Review ID</label>
+                    <label className="block text-sm text-white/70 mb-1">Email</label>
                     <input
                       type="text"
                       value={userIdOrEmail}
                       onChange={(e) => setUserIdOrEmail(e.target.value)}
                       className="w-full px-4 py-2 rounded-lg bg-white/10 border border-review-cyan/30 text-white"
-                      placeholder="Enter your email or ID"
+                      placeholder="Enter your email"
                       required
                       disabled={isLoading}
                     />
